@@ -61,6 +61,11 @@ void addInFile(ProductInfo temp, int size) {
 	
 }
 
+bool comp(ProductInfo& beg, ProductInfo& sec) {
+	return beg.productName < sec.productName;
+}
+
+
 // make better sorting)!!
 void sorting(ProductInfo*& array, int size, int choice) {
 	/* 1 - sorting by date (int)
@@ -104,6 +109,8 @@ void sorting(ProductInfo*& array, int size, int choice) {
 			break;
 		
 		// TO DO 3 and 4 with string;
+		case 3:
+			sort(array, array + size, comp);
 
 		case 4: 
 			for (int i = 0; i < size - 1; i++) {

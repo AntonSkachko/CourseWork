@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <algorithm>
 using namespace std;
 
 struct Date {
