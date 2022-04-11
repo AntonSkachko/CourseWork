@@ -60,14 +60,32 @@ void addInFile(ProductInfo temp, int size) {
 	file.close();
 	
 }
-
-bool comp(ProductInfo& beg, ProductInfo& sec) {
-	return beg.productName < sec.productName;
+bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end) {
+	return begin.dayWhenProductCreate.year < begin.dayWhenProductCreate.year;
 }
 
+bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end) {
+	return begin.workShopNumber < end.workShopNumber;
+}
 
-// make better sorting)!!
+bool compByProductName(ProductInfo& begin, ProductInfo& end) {
+	if(begin.productName != end.productName){
+		return begin.productName < end.productName;
+	}
+}
+
+bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end) {
+	return begin.numberOfProductsProduced < end.numberOfProductsProduced;
+}
+
+bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end) {
+	if (begin.responsiblePerson != end.responsiblePerson) {
+		return begin.responsiblePerson < end.responsiblePerson;
+	}
+}
+
 void sorting(ProductInfo*& array, int size, int choice) {
+	
 	/* 1 - sorting by date (int)
 	   2 - sorting by workShopNumber (int)
 	   3 - sorting by productName (string)
@@ -77,52 +95,27 @@ void sorting(ProductInfo*& array, int size, int choice) {
 	*/
 	
 	switch (choice) {
-		int temp;
-		
 		// TO DO сделать более нормальную сортировку с учЄтом мес€ца и дн€
 		case 1:
-			for (int i = 0; i < size - 1; i++) {
-				for (int j = i; j < size - i - 1; j++) {
-				
-					if (array[j].dayWhenProductCreate.year > array[j + 1].dayWhenProductCreate.year) {
-						
-						temp = array[j].dayWhenProductCreate.year;
-						array[j].dayWhenProductCreate.year = array[j + 1].dayWhenProductCreate.year;
-						array[j + 1].dayWhenProductCreate.year = temp;
-						
-					}
-				}
-			}
-			break;
-	
-		case 2:
-			for (int i = 0; i < size - 1; i++) {
-				for (int j = i; j < size - i - 1; j++) {
-					if (array[j].workShopNumber > array[j + 1].workShopNumber) {
-
-						temp = array[j].workShopNumber;
-						array[j].workShopNumber = array[j + 1].workShopNumber;
-						array[j + 1].workShopNumber = temp;
-					}
-				}
-			}
+			sort(array, array + size, compByDayWhenProductCreate);
 			break;
 		
-		// TO DO 3 and 4 with string;
+		case 2:
+			sort(array, array + size, compByWorkShopNumber);
+			break;
+		
 		case 3:
-			sort(array, array + size, comp);
+			sort(array, array + size, compByProductName);
+			break;
 
 		case 4: 
-			for (int i = 0; i < size - 1; i++) {
-				for (int j = i; j < size - i - 1; j++) {
-					if (array[j].numberOfProductsProduced > array[j + 1].numberOfProductsProduced) {
-						
-						temp = array[j].numberOfProductsProduced;
-						array[j].numberOfProductsProduced = array[j + 1].numberOfProductsProduced;
-						array[j + 1].numberOfProductsProduced = temp;
-					}
-				}
-			}
+			sort(array, array + size, compByNumberOfProductsProduced);
+			break;
+
+		case 5: 
+			sort(array, array + size, compByResponsiblePerson);
+			break;
+
 	}
 }
 
@@ -170,6 +163,8 @@ ProductInfo* IndividualTask(ProductInfo* array, Date beginning, Date end, int si
 	ProductInfo* IndividualArray = new ProductInfo[numberOfLines];
 
 	for (int i = 0; i < size; i++) {
-		if(array[i].dayWhenProductCreate.month)
+		if (array[i].dayWhenProductCreate.month) {
+			cout << "your an idiot";
+		}
 	}
 }

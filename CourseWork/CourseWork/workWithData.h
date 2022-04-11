@@ -28,6 +28,12 @@ void addInFile(ProductInfo temp, int size);
 void deleteElement(ProductInfo*& array, int& size, int deletingElement);
 
 // work with array
+bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end);
+bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end);
+bool compByProductName(ProductInfo& begin, ProductInfo& end);
+bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end);
+bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end);
+
 void sorting(ProductInfo*& array, int size, int choice);
 void search(ProductInfo* array, int size);
 
