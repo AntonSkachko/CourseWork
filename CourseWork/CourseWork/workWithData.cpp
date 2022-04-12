@@ -15,9 +15,9 @@ ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* array) {
 	return newArray;
 }
 
-ProductInfo* readFile(ProductInfo* array, int size) {
+ProductInfo* readFile(ProductInfo*& array, int size) {
 	ifstream file;
-	file.open("productFile.txt");
+	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\productFile.txt");
 
 	if (!file.is_open()) {
 		cout << "We have a problem" << endl;
@@ -45,21 +45,22 @@ ProductInfo* readFile(ProductInfo* array, int size) {
 }
 
 
-void addInFile(ProductInfo temp, int size) {
-	ofstream file;
-	file.open("productFile.txt");
-	
-	file << endl << temp.dayWhenProductCreate.day << " ";
-	file << temp.dayWhenProductCreate.month << " ";
-	file << temp.dayWhenProductCreate.year << " ";
-	file << temp.workShopNumber << " ";
-	file << temp.productName << " ";
-	file << temp.numberOfProductsProduced << " ";
-	file << temp.responsiblePerson << endl;
+void addInArray(ProductInfo*& array, int& size) {
+	array = resizeArray(size, size + 1, array);
+	cout << "Enter day when this product create: \n";
+	cout << "Day: "; cin >> array[size].dayWhenProductCreate.day;
+	cout << "Month: "; cin >> array[size].dayWhenProductCreate.month;
+	cout << "Year: "; cin >> array[size].dayWhenProductCreate.year;
 
-	file.close();
+	cout << "Enter work Shop number: "; cin >> array[size].workShopNumber;
 	
+	cout << "Enter product Name: "; cin >> array[size].productName;
+	
+	cout << "Enter number of product produced: "; cin >> array[size].numberOfProductsProduced;
+
+	cout << "Enter resposible person: "; cin >> array[size].responsiblePerson;
 }
+
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end) {
 	return begin.dayWhenProductCreate.year < begin.dayWhenProductCreate.year;
 }
@@ -69,9 +70,7 @@ bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end) {
 }
 
 bool compByProductName(ProductInfo& begin, ProductInfo& end) {
-	if(begin.productName != end.productName){
-		return begin.productName < end.productName;
-	}
+	return begin.productName < end.productName;
 }
 
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end) {
@@ -79,9 +78,8 @@ bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end) {
 }
 
 bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end) {
-	if (begin.responsiblePerson != end.responsiblePerson) {
-		return begin.responsiblePerson < end.responsiblePerson;
-	}
+	return begin.responsiblePerson < end.responsiblePerson;
+	
 }
 
 void sorting(ProductInfo*& array, int size, int choice) {
@@ -126,9 +124,10 @@ void search(ProductInfo*& array, int size) {
 
 
 
+
+
 // будет выводитьс€ таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удал€ть
-
 void deleteElement(ProductInfo*& array, int& size, int deletingElement) {
 	//нужно придумать как удал€ть элемент с файла
 	
@@ -167,4 +166,20 @@ ProductInfo* IndividualTask(ProductInfo* array, Date beginning, Date end, int si
 			cout << "your an idiot";
 		}
 	}
+}
+
+void writeInFile(ProductInfo* array, int size) {
+	ofstream file;
+	file.open("D:\gitHub\CourseWork\CourseWork\CourseWork\data\\productFile.txt", ios::out);
+	for (int i = 0; i < size; i++) {
+		file << array[i].dayWhenProductCreate.day << " ";
+		file << array[i].dayWhenProductCreate.month << " ";
+		file << array[i].dayWhenProductCreate.year << " ";
+		file << array[i].numberOfProductsProduced << " ";
+		file << array[i].productName << " ";
+		file << array[i].responsiblePerson << " ";
+		file << array[i].workShopNumber << endl;
+	}
+	file.close();
+	delete[] array;
 }
