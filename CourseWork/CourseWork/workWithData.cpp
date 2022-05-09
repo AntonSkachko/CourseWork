@@ -20,7 +20,7 @@ ProductInfo* readFile(ProductInfo*& array, int size) {
 	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\productFile.txt");
 
 	if (!file.is_open()) {
-		cout << "We have a problem" << endl;
+		cout << "We have a problem with Data" << endl;
 	}
 	else {
 		int numberOfLines = 0;
@@ -167,6 +167,7 @@ ProductInfo* IndividualTask(ProductInfo* array, Date beginning, Date end, int si
 		}
 	}
 }
+// you need to complete individual Task
 
 void writeInFile(ProductInfo* array, int size) {
 	ofstream file;
