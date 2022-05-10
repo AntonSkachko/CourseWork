@@ -19,7 +19,7 @@ struct Users {
 string getSaltedPassword(string password);
 bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, int size);
 bool isUsernameCorrect(string username, Users* arrayOfUsers, int size);
-long long hash(string password);
+long long hash(string password); // make me better
 Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize);
 
 // work with file

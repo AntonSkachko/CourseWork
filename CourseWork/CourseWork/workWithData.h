@@ -22,11 +22,11 @@ struct ProductInfo {
 };
 
 // work with file
-ProductInfo* readFile(ProductInfo*& array, int size);
-ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* array);
-void addInArray(ProductInfo*& array, int& size);
-void deleteElement(ProductInfo*& array, int& size, int deletingElement);
-void writeInFile(ProductInfo* array, int size);
+ProductInfo* readFile(ProductInfo*& arrayOfData, int size);
+ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfData);
+void addInArray(ProductInfo*& arrayOfData, int& size);
+void deleteElement(ProductInfo*& arrayOfData, int& size, int deletingElement);
+void writeInFile(ProductInfo* arrayOfData, int size);
 
 // work with array
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end);
@@ -35,12 +35,12 @@ bool compByProductName(ProductInfo& begin, ProductInfo& end);
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end);
 bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end);
 
-void sorting(ProductInfo*& array, int size, int choice);
-void search(ProductInfo* array, int size);
+void sorting(ProductInfo*& arrayOfData, int size, int choice);
+void search(ProductInfo* arrayOfData, int size);
 
 // make bettter name!!
-ProductInfo* IndividualTask(ProductInfo* array, Date beginning, Date end, int size);
+ProductInfo* IndividualTask(ProductInfo* arrayOfData, Date beginning, Date end, int size);
+Date getCurrentDate();
+int day(ProductInfo* arrayOfData);
 
 // other func
-Date getCurrentDate();
-int day(ProductInfo* array);
