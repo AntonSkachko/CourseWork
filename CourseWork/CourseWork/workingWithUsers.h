@@ -15,10 +15,21 @@ struct Users {
 	bool access;
 };
 
-Users* hash(string password, string salt);
-Users* resizeUserArray(Users*& array, int newSize, int oldSize);
-Users* login(Users*& array, int& size);
-void writeInUsersFile(Users* array, int size);
-void authorization(Users* array, int size);
-void deleteUser(Users*& array, int size, int key);
+// work with array
+string getSaltedPassword(string password);
+bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, int size);
+bool isUsernameCorrect(string username, Users* arrayOfUsers, int size);
+long long hash(string password);
+Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize);
+
+// work with file
+void writeInUsersFile(Users* arrayOfUsers, int size);
+Users* readUserFile(Users*& arrayOfUsers, int size);
+
+// admin
+void deleteUser(Users*& arrayOfUsers, int size, int key);
+void approveUser(Users*& arrayOfUsers, int size, string username);
+
+// make in outputToConsole.h
+void viewUserArray();
 

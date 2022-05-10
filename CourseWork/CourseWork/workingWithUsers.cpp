@@ -1,6 +1,6 @@
 #include "workingWithUsers.h"
 
-Users* readUserFile(Users*& array, int size) {
+Users* readUserFile(Users*& arrayOfUsers, int size) {
 	ifstream file;
 	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\Users.txt");
 
@@ -11,115 +11,127 @@ Users* readUserFile(Users*& array, int size) {
 		int numberOfLines = 0;
 		while (!file.eof()) {
 			if (numberOfLines >= size) {
-				array = resizeUserArray(array, size + 1, size);
+				arrayOfUsers = resizeUserArray(arrayOfUsers, size + 1, size);
 			}
-			file >> array[numberOfLines].nickname;
-			file >> array[numberOfLines].saltedHashPassword;
-			file >> array[numberOfLines].salt;
-			file >> array[numberOfLines].role;
-			file >> array[numberOfLines].access;
+			file >> arrayOfUsers[numberOfLines].nickname;
+			file >> arrayOfUsers[numberOfLines].saltedHashPassword;
+			file >> arrayOfUsers[numberOfLines].salt;
+			file >> arrayOfUsers[numberOfLines].role;
+			file >> arrayOfUsers[numberOfLines].access;
 
 			numberOfLines++;
 		}
-		array = resizeUserArray(array, size - 1, size);
+		arrayOfUsers = resizeUserArray(arrayOfUsers, size - 1, size);
 		
 	}
 	file.close();
-	return array;
+	return arrayOfUsers;
 }
 
-void writeInUsersFile(Users* array, int size) {
+void writeInUsersFile(Users* arrayOfUsers, int size) {
 	ofstream file;
 	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\Users.txt", ios::out);
 	for (int i = 0; i < size; i++) {
-		file << array[i].nickname << " ";
-		file << array[i].saltedHashPassword << " ";
-		file << array[i].salt << " ";
-		file << array[i].role << " ";
-		file << array[i].access << endl;
+		file << arrayOfUsers[i].nickname << " ";
+		file << arrayOfUsers[i].saltedHashPassword << " ";
+		file << arrayOfUsers[i].salt << " ";
+		file << arrayOfUsers[i].role << " ";
+		file << arrayOfUsers[i].access << endl;
 	}
 	file.close();
 }
 
 
-Users* resizeUserArray(Users*& array, int newSize, int oldSize) {
+Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize) {
 	if (oldSize == newSize) {
-		return array;
+		return arrayOfUsers;
 	}
 
 	Users* newArray = new Users[newSize];
 	oldSize = newSize < oldSize ? newSize : oldSize;
 	for (int i = 0; i < oldSize; i++) {
-		newArray[i] = array[i];
+		newArray[i] = arrayOfUsers[i];
 	}
 	oldSize = newSize;
-	delete[] array;
+	delete[] arrayOfUsers;
 	return newArray;
-}
-
-Users* hash(string password, string salt) {
-	return NULL;
-}
-
-Users* login(Users*& array, int& size) {
-	srand(time(NULL));
-	array = resizeUserArray(array, size + 1, size);
-	
-	string login;
-	while (true) {
-		system("cls");
-		cout << "Введите ваш логин: "; cin >> login;
-		for (int i = 0; i < size; i++) {
-			if (array[i].nickname == login) {
-				cout << "Такой человек уже есть введите другое имя";
-			}
-		}
-		array[size].nickname = login;
-		break;
-	}
-
-	string password;
-	cout << "Введите ваш пароль: ";
-	cin >> password;
-
-	string salt;
-	salt = rand() % 1000;
-	array[size].saltedHashPassword = hash(password, salt);
-	array[size].salt;
-
-	array[size].role = 0;
-	array[size].access = 0;
-}
-
-// доделать, но нужно поминть что обычные пользоватили может войти,
-// только в том случае если access будет равен 1
-// в ином случае должно выводиться "админ не одобрит твоё вход", что-то в этом роде
-void authorization(Users* array, int size) {
-	string login, password;
-	while (true) {
-		cout << "Введите ваш логин: "; cin >> login;
-		cout << "Введите ваш пароль: "; cin >> password;
-
-		for (int i = 0; i < size; i++) {
-			if (array[i].nickname == login) {
-				if (array[i].saltedHashPassword != hash(password, array[i].salt)) {
-					
-				}
-			}
-		}
-	}
 }
 
 
 // admin
-void deleteUser(Users*& array, int size, int key) {
+void deleteUser(Users*& arrayOfUsers, int size, int key) {
 
 	for (int i = key - 1; i < size - 1; i++) {
-		array[i] = array[i + 1];
+		arrayOfUsers[i] = arrayOfUsers[i + 1];
 	}
-	array = resizeUserArray(array, size - 1, size);
+	arrayOfUsers = resizeUserArray(arrayOfUsers, size - 1, size);
 }
 
 
+// ? откуда числа 15 106 и 21
+string getSaltedPassword(string password) {
+	srand(time(NULL));
+	const int SALT_SIZE = 15;
+	for (int elSalt = 0; elSalt < SALT_SIZE; ++elSalt) {
+		password += char(rand() % 106 + 21);
+	}
+	return password;
+}
 
 
+// это вообще что, нужно разобрать
+long long hash(const string password) {
+	
+	const long long hash_const_first = 958038479;
+	const long long hash_const_second = 1013572099;
+	long long hash_cur_val = hash_const_first;
+	long long hash_first = 0;
+	long long hash_second = 0;
+	
+	for (auto symbol : password) {
+		hash_first += hash_cur_val * symbol;
+		hash_cur_val *= hash_const_first;
+	}
+	for (auto symbol : password) {
+		hash_second += hash_cur_val * symbol;
+		hash_cur_val *= hash_const_second;
+	}
+	return hash_first * (11 * hash_const_second - 7 * hash_const_first)
+		+ hash_second * (13 * hash_const_first + 5 * hash_const_second);
+}
+
+bool isUsernameCorrect(string username, Users* arrayOfUsers, int size) {
+	for (int i = 0; i < size; i++) {
+		if (arrayOfUsers[i].nickname == username) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, int size) {
+	int userIndex = 0;
+	for (; userIndex < size; userIndex++) {
+		if (arrayOfUsers[userIndex].nickname == username) {
+			break;
+		}
+	}
+	
+	//if (hash(getSaltedPassword(password) == arrayOfUsers[userIndex].saltedHashPassword) {
+	//	return true;
+	//}
+	return false;
+}
+
+
+void approveUser(Users*& arrayOfUsers, int size, string username) {
+	if (isUsernameCorrect(username, arrayOfUsers, size)) {
+		return;
+	}
+	for (int i = 0; i < size; i++) {
+		if (arrayOfUsers[i].nickname == username) {
+			arrayOfUsers[i].access == 1;
+		}
+	}
+}
