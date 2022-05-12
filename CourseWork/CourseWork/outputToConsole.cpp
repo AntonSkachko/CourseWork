@@ -28,8 +28,37 @@ string EnterPassword() {
 	return pass;
 }
 
-void writeToConsole(ProductInfo* arrayOfData, Users* arrayOfUsers) {
+void writeToConsole(ProductInfo* arrayOfData, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
 	setlocale(LC_ALL, "Russian");
 	cout << "1) Войти \n2) Создать новый аккаунт \n3) Выйти из системы \n";
+
+	int choice;
+	cout << "Введите ваш выбор: ";
+	cin >> choice;
+
+	switch (choice) {
+		case 1: 
+			int attempts = 3; // количество попыток у пользователя
+			while (attempts) {
+				system("cls");
+				
+				string username, password;
+				cout << "Введите логин: "; cin >> username;
+				cout << "Введите пароль: ";
+				password = EnterPassword();
+
+				if (isPasswordCorrect(password, username, arrayOfUsers, sizeArrayOfUsers) &&
+					isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers)) {
+					break;
+				}
+				cout << "Неверный пароль или логин, повторыите попытку, у вас осталось попыток " << attempts;
+				--attempts;
+			}
+
+			if ()
+
+
+
+	}
 
 }

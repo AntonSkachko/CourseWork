@@ -17,8 +17,12 @@ struct Users {
 
 // work with array
 string getSaltedPassword(string password);
+
 bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, int size);
 bool isUsernameCorrect(string username, Users* arrayOfUsers, int size);
+bool isItAdmin(string username, Users* arrayOfUsers, int size);
+bool isAccess(string username, Users* arrayOfUsers, int size);
+
 long long hash(string password); // make me better
 Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize);
 

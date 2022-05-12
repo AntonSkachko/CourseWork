@@ -4,6 +4,8 @@
 #include "workWithData.h"
 #include <iostream>
 #include <conio.h>
+#include <string>
 using namespace std;
 
-void writeToConsole(ProductInfo* arrayOfData, Users arrayOfUsers);
+string EnterPassword();
+void writeToConsole(ProductInfo* arrayOfData, Users arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers);

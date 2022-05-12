@@ -114,16 +114,34 @@ bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, in
 	int userIndex = 0;
 	for (; userIndex < size; userIndex++) {
 		if (arrayOfUsers[userIndex].nickname == username) {
-			break;
+	
+		//if (hash(getSaltedPassword(password) == arrayOfUsers[userIndex].saltedHashPassword) {
+		//	return true;
+		//}
+		break;
 		}
 	}
-	
-	//if (hash(getSaltedPassword(password) == arrayOfUsers[userIndex].saltedHashPassword) {
-	//	return true;
-	//}
 	return false;
 }
 
+bool isItAdmin(string username, Users* arrayOfUsers, int size) {
+	// если человек под именем username €вл€етс€ админом, то arrayOfUsers.role будет true
+
+	for (int i = 0; i < size; i++) {
+		if (arrayOfUsers[i].nickname == username) {
+			return arrayOfUsers[i].role;
+		}
+	}
+}
+
+bool isAccess(string username, Users* arrayOfUsers, int size) {
+
+	for (int i = 0; i < size; i++) {
+		if (arrayOfUsers[i].nickname == username) {
+			return arrayOfUsers[i].access;
+		}
+	}
+}
 
 void approveUser(Users*& arrayOfUsers, int size, string username) {
 	if (isUsernameCorrect(username, arrayOfUsers, size)) {
