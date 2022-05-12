@@ -9,21 +9,21 @@ using namespace std;
 
 struct Users {
 	string nickname;
-	int saltedHashPassword;
+	long long saltedHashPassword;
 	string salt;
 	bool role;
 	bool access;
 };
 
 // work with array
-string getSaltedPassword(string password);
 
 bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, int size);
 bool isUsernameCorrect(string username, Users* arrayOfUsers, int size);
 bool isItAdmin(string username, Users* arrayOfUsers, int size);
 bool isAccess(string username, Users* arrayOfUsers, int size);
 
-long long hash(string password); // make me better
+long long hashing(string& password);
+long long getSaltedPassword(string& password);
 Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize);
 
 // work with file

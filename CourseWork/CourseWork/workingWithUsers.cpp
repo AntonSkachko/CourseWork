@@ -69,35 +69,25 @@ void deleteUser(Users*& arrayOfUsers, int size, int key) {
 
 
 // ? откуда числа 15 106 и 21
-string getSaltedPassword(string password) {
-	srand(time(NULL));
-	const int SALT_SIZE = 15;
-	for (int elSalt = 0; elSalt < SALT_SIZE; ++elSalt) {
-		password += char(rand() % 106 + 21);
+long long hashing(string& password) {
+	long long cons = 987432869, sum = 1;
+	for (int i = 0; i < password.size(); i++) {
+		sum = sum * cons + password[i];
 	}
-	return password;
 }
 
 
 // это вообще что, нужно разобрать
-long long hash(const string password) {
-	
-	const long long hash_const_first = 958038479;
-	const long long hash_const_second = 1013572099;
-	long long hash_cur_val = hash_const_first;
-	long long hash_first = 0;
-	long long hash_second = 0;
-	
-	for (auto symbol : password) {
-		hash_first += hash_cur_val * symbol;
-		hash_cur_val *= hash_const_first;
+long long getSaltedPassword(string& password) {
+	srand(hashing(password));
+	string newPassword = password;
+	const int NEW_SYMBOL_COUNT = 10;
+	const int SYMBOL_COUNT = 90;
+	const int MIN_SYMBOL = 32;
+	for (int ind = 0; ind < NEW_SYMBOL_COUNT; ind++) {
+		newPassword += rand() % SYMBOL_COUNT + MIN_SYMBOL;
 	}
-	for (auto symbol : password) {
-		hash_second += hash_cur_val * symbol;
-		hash_cur_val *= hash_const_second;
-	}
-	return hash_first * (11 * hash_const_second - 7 * hash_const_first)
-		+ hash_second * (13 * hash_const_first + 5 * hash_const_second);
+	return hashing(newPassword);
 }
 
 bool isUsernameCorrect(string username, Users* arrayOfUsers, int size) {
@@ -109,15 +99,16 @@ bool isUsernameCorrect(string username, Users* arrayOfUsers, int size) {
 	return false;
 }
 
-
+//TO DO
 bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, int size) {
 	int userIndex = 0;
 	for (; userIndex < size; userIndex++) {
 		if (arrayOfUsers[userIndex].nickname == username) {
 	
-		//if (hash(getSaltedPassword(password) == arrayOfUsers[userIndex].saltedHashPassword) {
-		//	return true;
-		//}
+			if (getSaltedPassword(password) == arrayOfUsers[userIndex].saltedHashPassword) {
+				return true;
+			}
+		}
 		break;
 		}
 	}

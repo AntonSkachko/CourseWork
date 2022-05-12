@@ -1,21 +1,22 @@
 #include "workWithData.h"
 
-ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfData) {
+ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfProduct
+) {
 	if (oldSize == newSize) {
-		return arrayOfData;
+		return arrayOfProduct;
 	}
 	
 	ProductInfo* newArray = new ProductInfo[newSize];
 	oldSize = newSize < oldSize ? newSize : oldSize;
 	for (int i = 0; i < oldSize; i++) {
-		newArray[i] = arrayOfData[i];
+		newArray[i] = arrayOfProduct[i];
 	}
 	oldSize = newSize;
-	delete[] arrayOfData;
+	delete[] arrayOfProduct;
 	return newArray;
 }
 
-ProductInfo* readFile(ProductInfo*& arrayOfData, int size) {
+ProductInfo* readFile(ProductInfo*& arrayOfProduct, int size) {
 	ifstream file;
 	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\productFile.txt");
 
@@ -26,39 +27,39 @@ ProductInfo* readFile(ProductInfo*& arrayOfData, int size) {
 		int numberOfLines = 0;
 		while (!file.eof()) {
 			if (numberOfLines >= size) {
-				arrayOfData = resizeArray(size, size + 1, arrayOfData);
+				arrayOfProduct = resizeArray(size, size + 1, arrayOfProduct);
 			}
-			file >> arrayOfData[numberOfLines].dayWhenProductCreate.day;
-			file >> arrayOfData[numberOfLines].dayWhenProductCreate.month;
-			file >> arrayOfData[numberOfLines].dayWhenProductCreate.year;
-			file >> arrayOfData[numberOfLines].workShopNumber;
-			file >> arrayOfData[numberOfLines].productName;
-			file >> arrayOfData[numberOfLines].numberOfProductsProduced;
-			file >> arrayOfData[numberOfLines].responsiblePerson;
+			file >> arrayOfProduct[numberOfLines].dayWhenProductCreate.day;
+			file >> arrayOfProduct[numberOfLines].dayWhenProductCreate.month;
+			file >> arrayOfProduct[numberOfLines].dayWhenProductCreate.year;
+			file >> arrayOfProduct[numberOfLines].workShopNumber;
+			file >> arrayOfProduct[numberOfLines].productName;
+			file >> arrayOfProduct[numberOfLines].numberOfProductsProduced;
+			file >> arrayOfProduct[numberOfLines].responsiblePerson;
 
 			numberOfLines++;
 		}
-		arrayOfData = resizeArray(size, size - 1, arrayOfData);
+		arrayOfProduct = resizeArray(size, size - 1, arrayOfProduct);
 	}
 	file.close();
-	return arrayOfData;
+	return arrayOfProduct;
 }
 
 
-void addInArray(ProductInfo*& arrayOfData, int& size) {
-	arrayOfData = resizeArray(size, size + 1, arrayOfData);
+void addInArray(ProductInfo*& arrayOfProduct, int& size) {
+	arrayOfProduct = resizeArray(size, size + 1, arrayOfProduct);
 	cout << "Enter day when this product create: \n";
-	cout << "Day: "; cin >> arrayOfData[size].dayWhenProductCreate.day;
-	cout << "Month: "; cin >> arrayOfData[size].dayWhenProductCreate.month;
-	cout << "Year: "; cin >> arrayOfData[size].dayWhenProductCreate.year;
+	cout << "Day: "; cin >> arrayOfProduct[size].dayWhenProductCreate.day;
+	cout << "Month: "; cin >> arrayOfProduct[size].dayWhenProductCreate.month;
+	cout << "Year: "; cin >> arrayOfProduct[size].dayWhenProductCreate.year;
 
-	cout << "Enter work Shop number: "; cin >> arrayOfData[size].workShopNumber;
+	cout << "Enter work Shop number: "; cin >> arrayOfProduct[size].workShopNumber;
 	
-	cout << "Enter product Name: "; cin >> arrayOfData[size].productName;
+	cout << "Enter product Name: "; cin >> arrayOfProduct[size].productName;
 	
-	cout << "Enter number of product produced: "; cin >> arrayOfData[size].numberOfProductsProduced;
+	cout << "Enter number of product produced: "; cin >> arrayOfProduct[size].numberOfProductsProduced;
 
-	cout << "Enter resposible person: "; cin >> arrayOfData[size].responsiblePerson;
+	cout << "Enter resposible person: "; cin >> arrayOfProduct[size].responsiblePerson;
 }
 
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end) {
@@ -82,7 +83,7 @@ bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end) {
 	
 }
 
-void sorting(ProductInfo*& arrayOfData, int size, int choice) {
+void sorting(ProductInfo*& arrayOfProduct, int size, int choice) {
 	
 	/* 1 - sorting by date (int)
 	   2 - sorting by workShopNumber (int)
@@ -95,46 +96,87 @@ void sorting(ProductInfo*& arrayOfData, int size, int choice) {
 	switch (choice) {
 		// TO DO сделать более нормальную сортировку с учётом месяца и дня
 		case 1:
-			sort(arrayOfData, arrayOfData + size, compByDayWhenProductCreate);
+			sort(arrayOfProduct, arrayOfProduct + size, compByDayWhenProductCreate);
 			break;
 		
 		case 2:
-			sort(arrayOfData, arrayOfData + size, compByWorkShopNumber);
+			sort(arrayOfProduct, arrayOfProduct + size, compByWorkShopNumber);
 			break;
 		
 		case 3:
-			sort(arrayOfData, arrayOfData + size, compByProductName);
+			sort(arrayOfProduct, arrayOfProduct + size, compByProductName);
 			break;
 
 		case 4: 
-			sort(arrayOfData, arrayOfData + size, compByNumberOfProductsProduced);
+			sort(arrayOfProduct, arrayOfProduct + size, compByNumberOfProductsProduced);
 			break;
 
 		case 5: 
-			sort(arrayOfData, arrayOfData + size, compByResponsiblePerson);
+			sort(arrayOfProduct, arrayOfProduct + size, compByResponsiblePerson);
 			break;
 
 	}
 }
 
+
+/*
 // make better search
-void search(ProductInfo*& array, int size) {
-	
+void searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
+	int index;
+	sorting(arrayOfProduct, size, 1);
+	for (int i = 0; i < size; i++) {
+		if (arrayOfProduct[i].dayWhenProductCreate == start) {
+			index = i;
+			break;
+		}
+	}
+
+	for (int i = index; arrayOfProduct[i].dayWhenProductCreate != finish; i++) {
+		cout << arrayOfProduct[i].dayWhenProductCreate;
+	}
 }
 
+void searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
+	int index;
+	sorting(arrayOfProduct, size, 1);
+	for (int i = 0; i < size; i++) {
+		if (arrayOfProduct[i].dayWhenProductCreate == start) {
+			index = i;
+			break;
+		}
+	}
 
+	for (int i = index; arrayOfProduct[i].dayWhenProductCreate != finish; i++) {
+		cout << arrayOfProduct[i].dayWhenProductCreate;
+	}
+}
+void searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
+	int index;
+	sorting(arrayOfProduct, size, 1);
+	for (int i = 0; i < size; i++) {
+		if (arrayOfProduct[i].dayWhenProductCreate == start) {
+			index = i;
+			break;
+		}
+	}
+
+	for (int i = index; arrayOfProduct[i].dayWhenProductCreate != finish; i++) {
+		cout << arrayOfProduct[i].dayWhenProductCreate;
+	}
+}
+*/
 
 
 
 // будет выводиться таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удалять
-void deleteElement(ProductInfo*& arrayOfData, int& size, int deletingElement) {
+void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement) {
 	//нужно придумать как удалять элемент с файла
 	
 	for (int i = deletingElement - 1; i < size - 1; i++) {
-		arrayOfData[i] = arrayOfData[i + 1];
+		arrayOfProduct[i] = arrayOfProduct[i + 1];
 	}
-	arrayOfData = resizeArray(size, size - 1, arrayOfData);
+	arrayOfProduct = resizeArray(size, size - 1, arrayOfProduct);
 }
 
 // TO DO better
@@ -154,33 +196,33 @@ int day(ProductInfo* array) {
 }
 
 
-ProductInfo* IndividualTask(ProductInfo* arrayOfData, Date beginning, Date end, int size) {
-	sorting(arrayOfData, size, 1);
+ProductInfo* IndividualTask(ProductInfo* arrayOfProduct, Date beginning, Date end, int size) {
+	sorting(arrayOfProduct, size, 1);
 	
 	int numberOfLines = 1;
 	// make better name!!
 	ProductInfo* IndividualArray = new ProductInfo[numberOfLines];
 
 	for (int i = 0; i < size; i++) {
-		if (arrayOfData[i].dayWhenProductCreate.month) {
+		if (arrayOfProduct[i].dayWhenProductCreate.month) {
 			cout << "your an idiot";
 		}
 	}
 }
 // you need to complete individual Task
 
-void writeInFile(ProductInfo* arrayOfData, int size) {
+void writeInFile(ProductInfo* arrayOfProduct, int size) {
 	ofstream file;
 	file.open("D:\gitHub\CourseWork\CourseWork\CourseWork\data\\productFile.txt", ios::out);
 	for (int i = 0; i < size; i++) {
-		file << arrayOfData[i].dayWhenProductCreate.day << " ";
-		file << arrayOfData[i].dayWhenProductCreate.month << " ";
-		file << arrayOfData[i].dayWhenProductCreate.year << " ";
-		file << arrayOfData[i].numberOfProductsProduced << " ";
-		file << arrayOfData[i].productName << " ";
-		file << arrayOfData[i].responsiblePerson << " ";
-		file << arrayOfData[i].workShopNumber << endl;
+		file << arrayOfProduct[i].dayWhenProductCreate.day << " ";
+		file << arrayOfProduct[i].dayWhenProductCreate.month << " ";
+		file << arrayOfProduct[i].dayWhenProductCreate.year << " ";
+		file << arrayOfProduct[i].numberOfProductsProduced << " ";
+		file << arrayOfProduct[i].productName << " ";
+		file << arrayOfProduct[i].responsiblePerson << " ";
+		file << arrayOfProduct[i].workShopNumber << endl;
 	}
 	file.close();
-	delete[] arrayOfData;
+	delete[] arrayOfProduct;
 }

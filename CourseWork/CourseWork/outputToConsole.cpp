@@ -28,6 +28,10 @@ string EnterPassword() {
 	return pass;
 }
 
+void tableOutput(ProductInfo* arrayOfData, int sizeArrayOfData) {
+
+}
+
 void writeToConsole(ProductInfo* arrayOfData, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
 	setlocale(LC_ALL, "Russian");
 	cout << "1) Войти \n2) Создать новый аккаунт \n3) Выйти из системы \n";
@@ -39,10 +43,10 @@ void writeToConsole(ProductInfo* arrayOfData, Users* arrayOfUsers, int sizeArray
 	switch (choice) {
 		case 1: 
 			int attempts = 3; // количество попыток у пользователя
+			string username, password;
 			while (attempts) {
 				system("cls");
 				
-				string username, password;
 				cout << "Введите логин: "; cin >> username;
 				cout << "Введите пароль: ";
 				password = EnterPassword();
@@ -55,8 +59,14 @@ void writeToConsole(ProductInfo* arrayOfData, Users* arrayOfUsers, int sizeArray
 				--attempts;
 			}
 
-			if ()
+			if (isItAdmin(username, arrayOfUsers, sizeArrayOfUsers)) {
 
+			}
+			else {
+				if (isAccess(username, arrayOfUsers, sizeArrayOfUsers)) {
+
+				}
+			}
 
 
 	}
