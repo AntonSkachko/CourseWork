@@ -16,7 +16,7 @@ ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfProduct
 	return newArray;
 }
 
-ProductInfo* readFile(ProductInfo*& arrayOfProduct, int size) {
+void readProductFile(ProductInfo*& arrayOfProduct, int size) {
 	ifstream file;
 	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\productFile.txt");
 
@@ -42,7 +42,6 @@ ProductInfo* readFile(ProductInfo*& arrayOfProduct, int size) {
 		arrayOfProduct = resizeArray(size, size - 1, arrayOfProduct);
 	}
 	file.close();
-	return arrayOfProduct;
 }
 
 

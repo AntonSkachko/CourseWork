@@ -7,5 +7,6 @@
 #include <string>
 using namespace std;
 
+void productTableOutPut(ProductInfo* arrayOfProduct, int sizeArrayOfData);
 string EnterPassword();
-void writeToConsole(ProductInfo* arrayOfData, Users arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers);
+void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers);

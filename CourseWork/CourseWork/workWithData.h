@@ -22,7 +22,7 @@ struct ProductInfo {
 };
 
 // work with file
-ProductInfo* readFile(ProductInfo*& arrayOfProduct, int size);
+void readProductFile(ProductInfo*& arrayOfProduct, int size);
 ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfProduct);
 void addInArray(ProductInfo*& arrayOfProduct, int& size);
 void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement);

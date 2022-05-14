@@ -28,12 +28,8 @@ Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize);
 
 // work with file
 void writeInUsersFile(Users* arrayOfUsers, int size);
-Users* readUserFile(Users*& arrayOfUsers, int size);
+void readUserFile(Users*& arrayOfUsers, int size);
 
 // admin
 void deleteUser(Users*& arrayOfUsers, int size, int key);
 void approveUser(Users*& arrayOfUsers, int size, string username);
-
-// make in outputToConsole.h
-void viewUserArray();
-

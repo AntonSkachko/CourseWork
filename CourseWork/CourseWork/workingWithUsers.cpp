@@ -1,6 +1,6 @@
 #include "workingWithUsers.h"
 
-Users* readUserFile(Users*& arrayOfUsers, int size) {
+void readUserFile(Users*& arrayOfUsers, int size) {
 	ifstream file;
 	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\Users.txt");
 
@@ -25,7 +25,6 @@ Users* readUserFile(Users*& arrayOfUsers, int size) {
 		
 	}
 	file.close();
-	return arrayOfUsers;
 }
 
 void writeInUsersFile(Users* arrayOfUsers, int size) {
@@ -58,7 +57,6 @@ Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize) {
 }
 
 
-// admin
 void deleteUser(Users*& arrayOfUsers, int size, int key) {
 
 	for (int i = key - 1; i < size - 1; i++) {
@@ -68,7 +66,6 @@ void deleteUser(Users*& arrayOfUsers, int size, int key) {
 }
 
 
-// ? откуда числа 15 106 и 21
 long long hashing(string& password) {
 	long long cons = 987432869, sum = 1;
 	for (int i = 0; i < password.size(); i++) {
@@ -109,8 +106,6 @@ bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, in
 				return true;
 			}
 		}
-		break;
-		}
 	}
 	return false;
 }
@@ -140,7 +135,7 @@ void approveUser(Users*& arrayOfUsers, int size, string username) {
 	}
 	for (int i = 0; i < size; i++) {
 		if (arrayOfUsers[i].nickname == username) {
-			arrayOfUsers[i].access == 1;
+			arrayOfUsers[i].access = 1;
 		}
 	}
 }
