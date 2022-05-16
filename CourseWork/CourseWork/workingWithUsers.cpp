@@ -71,6 +71,7 @@ long long hashing(string& password) {
 	for (int i = 0; i < password.size(); i++) {
 		sum = sum * cons + password[i];
 	}
+	return sum;
 }
 
 

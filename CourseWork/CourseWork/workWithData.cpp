@@ -191,7 +191,7 @@ Date getCurrentDate() {
 }
 
 int day(ProductInfo* array) {
-	
+	return getCurrentDate().day;
 }
 
 

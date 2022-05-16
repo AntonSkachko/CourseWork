@@ -54,7 +54,7 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeAr
 		case 1: 
 			int attempts = 3; // количество попыток у пользовател€
 			string username, password;
-			while (attempts) {
+			while (attempts > 0) {
 				system("cls");
 				
 				cout << "¬ведите логин: "; cin >> username;
