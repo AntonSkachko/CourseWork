@@ -118,26 +118,22 @@ void sorting(ProductInfo*& arrayOfProduct, int size, int choice) {
 }
 
 
+// поиск по году когда он произведён
+ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int date) {
+	int sizeOfTempArray = 1;
+	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
 
-ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
-	int index;
 	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
-		if (arrayOfProduct[numberOfProduct].dayWhenProductCreate.year == start) {
-			index = numberOfProduct;
-			break;
+		if (arrayOfProduct[numberOfProduct].dayWhenProductCreate.year == date) {
+			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
+			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
 		}
-
 	}
-	ProductInfo* tempArray = new ProductInfo[size - index];
-
-	for (int numberOfProduct = index; numberOfProduct < size; numberOfProduct++) {
-		int tempIndex = 0;
-		tempArray[tempIndex] = arrayOfProduct[numberOfProduct];
-		tempIndex++;
-	}
+	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
+	return tempArray;
 }
 
-
+// поиск по номеру цеха
 ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int element) {
 	int sizeOfTempArray = 1;
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
@@ -152,6 +148,7 @@ ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int e
 	return tempArray;
 }
 
+// поиск по имени продукта
 ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string nameOfProduct) {
 	int sizeOfTempArray = 1;
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
@@ -166,7 +163,7 @@ ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string n
 	return tempArray;
 }
 
-
+// поиск по количеству выпущенных единиц
 ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int count) {
 	int sizeOfTempArray = 1;
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
@@ -178,8 +175,10 @@ ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int s
 		}
 	}
 	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
+	return tempArray;
 }
 
+// поиск по ответсвенному в это дату выпуска продукции
 ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, string person) {
 	int sizeOfTempArray = 1;
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
@@ -193,6 +192,7 @@ ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, st
 	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
 	return tempArray;
 }
+
 
 // будет выводиться таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удалять

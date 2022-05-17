@@ -10,7 +10,7 @@
 	  |	        	 \___ /_GTR R34_\ ___/				|
 	  |	        	 \_|_|_|       |_|_|_/				|
 	  ---------------------------------------------------
-														**/
+														   **/
 
 #include "outputToConsole.h"
 #include "workingWithUsers.h"

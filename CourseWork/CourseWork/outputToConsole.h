@@ -15,4 +15,4 @@ string EnterPassword();
 void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers);
 
 void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers);
-void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfProduct);
+void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData);

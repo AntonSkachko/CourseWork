@@ -37,7 +37,7 @@ bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end);
 void sorting(ProductInfo*& arrayOfProduct, int size, int choice);
 
 // searching
-ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish);
+ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int date);
 ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int element);
 ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string nameOfProduct);
 ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int count);

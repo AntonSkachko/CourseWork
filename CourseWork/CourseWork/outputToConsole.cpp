@@ -52,7 +52,7 @@ string validation(Users* arrayOfUsers, int sizeArrayOfUsers) {
 
 }
 
-
+// вывод таблицы продуктов склада
 void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(2) << "день когда продук произведён" << setw(2) << "|"
 		<< setw(2) << "номер цеха" << setw(2) << "|" << setw(2) << "название продукта" << setw(2) << "|"
@@ -68,45 +68,104 @@ void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	
 }
 
-
+// вывод таблицы пользователей
 void userTableOutput(Users* arrayOfUsers, int sizeArrayOfUsers) {
 	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(2) << "имя пользователя" << setw(2) << "|"
+		<< setw(2) << "хешированный пароль" << setw(2) << "|"
 		<< setw(2) << "роль" << setw(2) << "|" << setw(2) << "доступ" << setw(2) << "|\n";
 	for (int i = 0; i < sizeArrayOfUsers; i++) {
 		cout << "--------------------------------------------------------------------------------------------";
 		cout << "|" << setw(2) << i << setw(2) << "|" << setw(2) << arrayOfUsers[i].nickname << setw(2) << "|"
+			<< setw(2) << arrayOfUsers[i].saltedHashPassword << setw(2) << "|"
 			<< setw(2) << arrayOfUsers[i].role << setw(2) << "|" << setw(2) << arrayOfUsers[i].access << setw(2) << "|\n";
 	}
 	cout << "--------------------------------------------------------------------------------------------";
 }
 
+// что должно выводить у админа
 void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
 
 }
 
+// что должно выводить у обычного пошльзователя
 void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
-	productTableOutput(arrayOfProduct, sizeArrayOfData);
-	cout << "\n 1) сортировка \n 2) поиск \n 3) выход";
-	int choice, sortingChoice;
-	cin >> choice;
+	// sortingChoice и searchingChoice переменные для выбора метода сортировки и поиска соответсвенно
+	
+	int choice, sortingChoice, searchingChoice, date, element, count;
+	string nameOfProduct, nameOfResponsible;
+	ProductInfo* searchingArray;
 
-	switch (choice) {
+	while (true) {
+		cout << "\n 1) сортировка \n 2) поиск \n 3) выход\n";
+		cin >> choice;
+		switch (choice) {
 		case 1:
-			/* 1 - sorting by date (int)
-			   2 - sorting by workShopNumber (int)
-			   3 - sorting by productName (string)
-			   4 - sorting by numberOfProductsProduced (int)
-			   5 - sorting by responsiblePerson (string)
-
-			*/
+			system("cls");
 			productTableOutput(arrayOfProduct, sizeArrayOfData);
-			cout << " по какому методу будем соритровать:\n 1) по дню когда он был произведён \n"
+			cout << " по какому методу будем соритровать:\n 1) по году когда он был произведён \n"
 				<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
-				<< "\n 5) по имени ответсвенного";
+				<< "\n 5) по имени ответсвенного\n";
+			cin >> sortingChoice;
 			sorting(arrayOfProduct, sizeArrayOfData, sortingChoice);
 
+			system("cls");
+			productTableOutput(arrayOfProduct, sizeArrayOfData);
+			break;
+
 		case 2:
-			
+			system("cls");
+			productTableOutput(arrayOfProduct, sizeArrayOfData);
+			cout << " по какому методу будем искать:\n 1) по дню когда он был произведён \n"
+				<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
+				<< "\n 5) по имени ответсвенного \n";
+			cin >> searchingChoice;
+
+			system("cls");
+			productTableOutput(arrayOfProduct, sizeArrayOfData);
+
+			switch (choice) {
+
+			case 1:
+				cout << " Введите год: ";
+				cin >> date;
+				searchingArray = searchByDayWhenProductCreate(arrayOfProduct, sizeArrayOfData, date);
+				break;
+
+			case 2:
+				cout << " Введите номер цеха: ";
+				cin >> element;
+				searchingArray = searchByWorkShopNumber(arrayOfProduct, sizeArrayOfData, element);
+				break;
+
+			case 3:
+				cout << " Введите название продукта: ";
+				cin >> nameOfProduct;
+				searchingArray = searchByProductName(arrayOfProduct, sizeArrayOfData, nameOfProduct);
+				break;
+
+			case 4:
+				cout << " Введите количество выпущенной продукции: ";
+				cin >> count;
+				searchingArray = searchByNumberOfProductsProduced(arrayOfProduct, sizeArrayOfData, count);
+				break;
+			case 5:
+				cout << " Введите ответсвенного в день выпуска продукции: ";
+				cin >> nameOfResponsible;
+				searchingArray = searchByResponsiblePerson(arrayOfProduct, sizeArrayOfData, nameOfResponsible);
+				break;
+			default:
+				cout << " такого числа нет попробуй снова";
+
+			}
+			productTableOutput(searchingArray, 1);
+		case 3:
+			system("cls");
+			cout << " Прощайте! ";
+			return;
+		default:
+			system("cls");
+			cout << " Введите коректное число!";
+		}
 	}
 }
 
@@ -124,12 +183,15 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeAr
 			username = validation(arrayOfUsers, sizeArrayOfUsers);
 			
 			if (isItAdmin(username, arrayOfUsers, sizeArrayOfUsers)) {
-
-				productTableOutput(arrayOfProduct, sizeArrayOfData);
+				adminOutput(arrayOfProduct, arrayOfUsers, sizeArrayOfData, sizeArrayOfUsers);
 			}
 			else {
 				if (isAccess(username, arrayOfUsers, sizeArrayOfUsers)) {
-					productTableOutput(arrayOfProduct, sizeArrayOfData); 
+					userOutput(arrayOfProduct, sizeArrayOfData);
+				}
+				else {
+					cout << " У вас ещё нет доступа";
+					break;
 				}
 			}
 
