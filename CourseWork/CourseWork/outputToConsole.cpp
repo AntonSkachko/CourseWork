@@ -28,6 +28,31 @@ string EnterPassword() {
 	return pass;
 }
 
+string validation(Users* arrayOfUsers, int sizeArrayOfUsers) {
+	int attempts = 3; // количество попыток у пользователя
+	string username, password;
+	while (true) {
+		system("cls");
+
+		cout << " Введите логин: "; cin >> username;
+		cout << " Введите пароль: ";
+		password = EnterPassword();
+
+		if (isPasswordCorrect(password, username, arrayOfUsers, sizeArrayOfUsers) &&
+			isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers)) {
+			return username;
+		}
+		cout << " Неверный пароль или логин, повторыите попытку, у вас осталось попыток " << attempts;
+		--attempts;
+		if (attempts == 0) {
+			cout << " Ваш лимит исчерпан";
+			return;
+		}
+	}
+
+}
+
+
 void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(2) << "день когда продук произведён" << setw(2) << "|"
 		<< setw(2) << "номер цеха" << setw(2) << "|" << setw(2) << "название продукта" << setw(2) << "|"
@@ -40,35 +65,64 @@ void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 			<< setw(2) << arrayOfProduct[i].numberOfProductsProduced << setw(2) << "|" << arrayOfProduct[i].responsiblePerson << setw(2) << "|\n";
 	}
 	cout << "--------------------------------------------------------------------------------------------";
+	
+}
+
+
+void userTableOutput(Users* arrayOfUsers, int sizeArrayOfUsers) {
+	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(2) << "имя пользователя" << setw(2) << "|"
+		<< setw(2) << "роль" << setw(2) << "|" << setw(2) << "доступ" << setw(2) << "|\n";
+	for (int i = 0; i < sizeArrayOfUsers; i++) {
+		cout << "--------------------------------------------------------------------------------------------";
+		cout << "|" << setw(2) << i << setw(2) << "|" << setw(2) << arrayOfUsers[i].nickname << setw(2) << "|"
+			<< setw(2) << arrayOfUsers[i].role << setw(2) << "|" << setw(2) << arrayOfUsers[i].access << setw(2) << "|\n";
+	}
+	cout << "--------------------------------------------------------------------------------------------";
+}
+
+void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
+
+}
+
+void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
+	productTableOutput(arrayOfProduct, sizeArrayOfData);
+	cout << "\n 1) сортировка \n 2) поиск \n 3) выход";
+	int choice, sortingChoice;
+	cin >> choice;
+
+	switch (choice) {
+		case 1:
+			/* 1 - sorting by date (int)
+			   2 - sorting by workShopNumber (int)
+			   3 - sorting by productName (string)
+			   4 - sorting by numberOfProductsProduced (int)
+			   5 - sorting by responsiblePerson (string)
+
+			*/
+			productTableOutput(arrayOfProduct, sizeArrayOfData);
+			cout << " по какому методу будем соритровать:\n 1) по дню когда он был произведён \n"
+				<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
+				<< "\n 5) по имени ответсвенного";
+			sorting(arrayOfProduct, sizeArrayOfData, sortingChoice);
+
+		case 2:
+			
+	}
 }
 
 void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
 	setlocale(LC_ALL, "Russian");
-	cout << "1) Войти \n2) Создать новый аккаунт \n3) Выйти из системы \n";
+	cout << " 1) Войти \n2) Создать новый аккаунт \n3) Выйти из системы \n";
 
+	string username;
 	int choice;
-	cout << "Введите ваш выбор: ";
+	cout << " Введите ваш выбор: ";
 	cin >> choice;
 
 	switch (choice) {
 		case 1: 
-			int attempts = 3; // количество попыток у пользователя
-			string username, password;
-			while (attempts > 0) {
-				system("cls");
-				
-				cout << "Введите логин: "; cin >> username;
-				cout << "Введите пароль: ";
-				password = EnterPassword();
-
-				if (isPasswordCorrect(password, username, arrayOfUsers, sizeArrayOfUsers) &&
-					isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers)) {
-					break;
-				}
-				cout << "Неверный пароль или логин, повторыите попытку, у вас осталось попыток " << attempts;
-				--attempts;
-			}
-
+			username = validation(arrayOfUsers, sizeArrayOfUsers);
+			
 			if (isItAdmin(username, arrayOfUsers, sizeArrayOfUsers)) {
 
 				productTableOutput(arrayOfProduct, sizeArrayOfData);

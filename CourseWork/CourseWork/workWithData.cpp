@@ -118,54 +118,81 @@ void sorting(ProductInfo*& arrayOfProduct, int size, int choice) {
 }
 
 
-/*
-// make better search
-void searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
+
+ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
 	int index;
-	sorting(arrayOfProduct, size, 1);
-	for (int i = 0; i < size; i++) {
-		if (arrayOfProduct[i].dayWhenProductCreate == start) {
-			index = i;
+	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
+		if (arrayOfProduct[numberOfProduct].dayWhenProductCreate.year == start) {
+			index = numberOfProduct;
 			break;
 		}
-	}
 
-	for (int i = index; arrayOfProduct[i].dayWhenProductCreate != finish; i++) {
-		cout << arrayOfProduct[i].dayWhenProductCreate;
+	}
+	ProductInfo* tempArray = new ProductInfo[size - index];
+
+	for (int numberOfProduct = index; numberOfProduct < size; numberOfProduct++) {
+		int tempIndex = 0;
+		tempArray[tempIndex] = arrayOfProduct[numberOfProduct];
+		tempIndex++;
 	}
 }
 
-void searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
-	int index;
-	sorting(arrayOfProduct, size, 1);
-	for (int i = 0; i < size; i++) {
-		if (arrayOfProduct[i].dayWhenProductCreate == start) {
-			index = i;
-			break;
+
+ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int element) {
+	int sizeOfTempArray = 1;
+	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
+
+	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
+		if (arrayOfProduct[numberOfProduct].workShopNumber == element) {
+			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
+			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
 		}
 	}
-
-	for (int i = index; arrayOfProduct[i].dayWhenProductCreate != finish; i++) {
-		cout << arrayOfProduct[i].dayWhenProductCreate;
-	}
+	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
+	return tempArray;
 }
-void searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish) {
-	int index;
-	sorting(arrayOfProduct, size, 1);
-	for (int i = 0; i < size; i++) {
-		if (arrayOfProduct[i].dayWhenProductCreate == start) {
-			index = i;
-			break;
+
+ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string nameOfProduct) {
+	int sizeOfTempArray = 1;
+	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
+
+	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
+		if (arrayOfProduct[numberOfProduct].productName == nameOfProduct) {
+			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
+			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
 		}
 	}
-
-	for (int i = index; arrayOfProduct[i].dayWhenProductCreate != finish; i++) {
-		cout << arrayOfProduct[i].dayWhenProductCreate;
-	}
+	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
+	return tempArray;
 }
-*/
 
 
+ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int count) {
+	int sizeOfTempArray = 1;
+	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
+
+	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
+		if (arrayOfProduct[numberOfProduct].numberOfProductsProduced == count) {
+			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
+			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
+		}
+	}
+	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
+}
+
+ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, string person) {
+	int sizeOfTempArray = 1;
+	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
+
+	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
+		if (arrayOfProduct[numberOfProduct].responsiblePerson == person) {
+			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
+			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
+		}
+	}
+	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
+	return tempArray;
+}
 
 // будет выводиться таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удалять
@@ -178,7 +205,7 @@ void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement)
 	arrayOfProduct = resizeArray(size, size - 1, arrayOfProduct);
 }
 
-// TO DO better
+// TO DO better !!!!!!!
 Date getCurrentDate() {
 	tm localTime;
 	time_t now = time(NULL);

@@ -34,9 +34,15 @@ bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end);
 bool compByProductName(ProductInfo& begin, ProductInfo& end);
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end);
 bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end);
-
 void sorting(ProductInfo*& arrayOfProduct, int size, int choice);
-void searchByDayWhenProductCreate(ProductInfo*& arrayOfProduct, int size, int start, int finish);
+
+// searching
+ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int start, int finish);
+ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int element);
+ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string nameOfProduct);
+ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int count);
+ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, string person);
+
 
 // make bettter name!!
 ProductInfo* IndividualTask(ProductInfo* arrayOfProduct, Date beginning, Date end, int size);
