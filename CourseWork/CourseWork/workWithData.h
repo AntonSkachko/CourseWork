@@ -45,8 +45,8 @@ ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, st
 
 
 // make bettter name!!
-ProductInfo* IndividualTask(ProductInfo* arrayOfProduct, Date beginning, Date end, int size);
+ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, Date beginning, Date end,int numberOfWorkshop, int size);
 Date getCurrentDate();
-int day(ProductInfo* arrayOfProduct);
+int convertToDay(Date day);
 
 // other func

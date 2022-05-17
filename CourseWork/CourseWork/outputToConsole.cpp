@@ -82,8 +82,22 @@ void userTableOutput(Users* arrayOfUsers, int sizeArrayOfUsers) {
 	cout << "--------------------------------------------------------------------------------------------";
 }
 
-// что должно выводить у админа
-void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
+void outputSorting(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
+	
+	system("cls");
+	productTableOutput(arrayOfProduct, sizeArrayOfData);
+	cout << " по какому методу будем соритровать:\n 1) по году когда он был произведён \n"
+		<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
+		<< "\n 5) по имени ответсвенного\n";
+	int sortingChoice;
+	cin >> sortingChoice;
+	sorting(arrayOfProduct, sizeArrayOfData, sortingChoice);
+
+	system("cls");
+	productTableOutput(arrayOfProduct, sizeArrayOfData);
+}
+
+void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfProduct) {
 
 }
 
@@ -91,28 +105,21 @@ void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArray
 void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	// sortingChoice и searchingChoice переменные для выбора метода сортировки и поиска соответсвенно
 	
-	int choice, sortingChoice, searchingChoice, date, element, count;
+	int choice, searchingChoice, date, element, count, numberOfWorkshop;
 	string nameOfProduct, nameOfResponsible;
 	ProductInfo* searchingArray;
+	Date beginning, end;
 
 	while (true) {
-		cout << "\n 1) сортировка \n 2) поиск \n 3) выход\n";
+		system("cls");
+		cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n 4) выход\n";
 		cin >> choice;
 		switch (choice) {
-		case 1:
-			system("cls");
-			productTableOutput(arrayOfProduct, sizeArrayOfData);
-			cout << " по какому методу будем соритровать:\n 1) по году когда он был произведён \n"
-				<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
-				<< "\n 5) по имени ответсвенного\n";
-			cin >> sortingChoice;
-			sorting(arrayOfProduct, sizeArrayOfData, sortingChoice);
+			case 1:
+				outputSorting(arrayOfProduct, sizeArrayOfData);
+				break;
 
-			system("cls");
-			productTableOutput(arrayOfProduct, sizeArrayOfData);
-			break;
-
-		case 2:
+			case 2:
 			system("cls");
 			productTableOutput(arrayOfProduct, sizeArrayOfData);
 			cout << " по какому методу будем искать:\n 1) по дню когда он был произведён \n"
@@ -158,7 +165,29 @@ void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 
 			}
 			productTableOutput(searchingArray, 1);
+
 		case 3:
+			system("cls");
+			cout << " Введите номер цеха: ";
+			cin >> numberOfWorkshop;
+
+			cout << " Введите период времени \n начало: \n	день: ";
+			cin >> beginning.day;
+			cout << "	месяц: ";
+			cin >> beginning.month;
+			cout << "	год:";
+			cin >> beginning.year;
+
+			cout << " Введите период времени \n конец: \n	день: ";
+			cin >> end.day;
+			cout << "	месяц: ";
+			cin >> end.month;
+			cout << "	год:";
+			cin >> end.year;
+			system("cls");
+			productTableOutput(OutputOfNumberOfManufacturedProducts(arrayOfProduct, beginning, end, numberOfWorkshop, sizeArrayOfData), 10);
+			break;
+		case 4:
 			system("cls");
 			cout << " Прощайте! ";
 			return;
@@ -167,6 +196,24 @@ void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 			cout << " Введите коректное число!";
 		}
 	}
+}
+
+void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
+	system("cls");
+
+	int choice;
+
+	while (true) {
+		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n 3) выход";
+
+		cin >> choice;
+		switch (choice) {
+			case 1:
+				productTableOutput(arrayOfProduct, sizeArrayOfData)
+
+		}
+	}
+
 }
 
 void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
@@ -194,6 +241,9 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeAr
 					break;
 				}
 			}
+
+		case 2:
+
 
 
 	}

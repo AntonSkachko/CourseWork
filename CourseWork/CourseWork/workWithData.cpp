@@ -217,23 +217,28 @@ Date getCurrentDate() {
 	return currentDate;
 }
 
-int day(ProductInfo* array) {
-	return getCurrentDate().day;
+int convertToDay(Date day) {
+	int numberOfDays;
+	numberOfDays = day.day + day.month * 30 + day.year * 365;
+	return numberOfDays;
 }
 
-
-ProductInfo* IndividualTask(ProductInfo* arrayOfProduct, Date beginning, Date end, int size) {
-	sorting(arrayOfProduct, size, 1);
-	
-	int numberOfLines = 1;
-	// make better name!!
-	ProductInfo* IndividualArray = new ProductInfo[numberOfLines];
+ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, Date beginning, Date end, int numberOfWorkshop, int size) {
+	int sizeOfManufacturedProduct = 1;
+	ProductInfo* manufacturedProducts = new ProductInfo[sizeOfManufacturedProduct];
 
 	for (int i = 0; i < size; i++) {
-		if (arrayOfProduct[i].dayWhenProductCreate.month) {
-			cout << "your an idiot";
+		if (arrayOfProduct[i].workShopNumber == numberOfWorkshop) {
+			if (convertToDay(arrayOfProduct[i].dayWhenProductCreate) >= convertToDay(beginning) ||
+				convertToDay(arrayOfProduct[i].dayWhenProductCreate) <= convertToDay(end)) {
+				manufacturedProducts[sizeOfManufacturedProduct - 1] = arrayOfProduct[i];
+				
+				manufacturedProducts = resizeArray(sizeOfManufacturedProduct, sizeOfManufacturedProduct + 1, manufacturedProducts);
+			}
 		}
 	}
+	manufacturedProducts = resizeArray(sizeOfManufacturedProduct, sizeOfManufacturedProduct - 1, manufacturedProducts);
+	return manufacturedProducts;
 }
 // you need to complete individual Task
 
