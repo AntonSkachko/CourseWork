@@ -20,7 +20,6 @@ using namespace std;
 
 
 int main() {
-	cout << day(nullptr) << '\n';
 	setlocale(LC_ALL, "Russian");
 	
 	int sizeArrayOfData = 1, sizeArrayOfUsers = 1;

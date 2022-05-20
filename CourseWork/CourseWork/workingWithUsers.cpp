@@ -74,17 +74,24 @@ long long hashing(string& password) {
 	return sum;
 }
 
-
-// это вообще что, нужно разобрать
-long long getSaltedPassword(string& password) {
+void getSalt(Users*& arrayOfUsers, string password, int key) {
 	srand(hashing(password));
-	string newPassword = password;
+	string salt = "";
+
 	const int NEW_SYMBOL_COUNT = 10;
 	const int SYMBOL_COUNT = 90;
 	const int MIN_SYMBOL = 32;
+
 	for (int ind = 0; ind < NEW_SYMBOL_COUNT; ind++) {
-		newPassword += rand() % SYMBOL_COUNT + MIN_SYMBOL;
+		salt += rand() % SYMBOL_COUNT + MIN_SYMBOL;
 	}
+	arrayOfUsers[key].salt = salt;
+}
+
+long long getSaltedPassword(string& password, Users* arrayOfUsers, int key) {
+	srand(hashing(password));
+	string newPassword = password;
+	newPassword += arrayOfUsers[key].salt;
 	return hashing(newPassword);
 }
 
@@ -97,13 +104,11 @@ bool isUsernameCorrect(string username, Users* arrayOfUsers, int size) {
 	return false;
 }
 
-//TO DO
 bool isPasswordCorrect(string password, string username, Users* arrayOfUsers, int size) {
-	int userIndex = 0;
-	for (; userIndex < size; userIndex++) {
+	for (int userIndex = 0; userIndex < size; userIndex++) {
 		if (arrayOfUsers[userIndex].nickname == username) {
 	
-			if (getSaltedPassword(password) == arrayOfUsers[userIndex].saltedHashPassword) {
+			if (getSaltedPassword(password, arrayOfUsers, userIndex) == arrayOfUsers[userIndex].saltedHashPassword) {
 				return true;
 			}
 		}
@@ -130,13 +135,10 @@ bool isAccess(string username, Users* arrayOfUsers, int size) {
 	}
 }
 
-void approveUser(Users*& arrayOfUsers, int size, string username) {
-	if (isUsernameCorrect(username, arrayOfUsers, size)) {
-		return;
-	}
-	for (int i = 0; i < size; i++) {
-		if (arrayOfUsers[i].nickname == username) {
-			arrayOfUsers[i].access = 1;
-		}
-	}
+void approveUser(Users*& arrayOfUsers, int size, int key) {
+	arrayOfUsers[key].access = 1;
+}
+
+void makeUserAdmin(Users*& arrayOfUsers, int size, int key) {
+	arrayOfUsers[key].role = 1;
 }

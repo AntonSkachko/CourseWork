@@ -46,7 +46,7 @@ string validation(Users* arrayOfUsers, int sizeArrayOfUsers) {
 		--attempts;
 		if (attempts == 0) {
 			cout << " Ваш лимит исчерпан";
-			return;
+			break;
 		}
 	}
 
@@ -97,18 +97,89 @@ void outputSorting(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	productTableOutput(arrayOfProduct, sizeArrayOfData);
 }
 
-void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfProduct) {
+void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
+	system("cls");
+	ProductInfo* searchingArray = new ProductInfo[1];
+	string nameOfResponsible, nameOfProduct;
+	int searchingChoice, date, element, count, numberOfWorkshop;
+	productTableOutput(arrayOfProduct, sizeArrayOfData);
+	cout << " по какому методу будем искать:\n 1) по дню когда он был произведён \n"
+		<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
+		<< "\n 5) по имени ответсвенного \n";
+	cin >> searchingChoice;
 
+	system("cls");
+	productTableOutput(arrayOfProduct, sizeArrayOfData);
+
+	switch (searchingChoice) {
+
+	case 1:
+		cout << " Введите год: ";
+		cin >> date;
+		searchingArray = searchByDayWhenProductCreate(arrayOfProduct, sizeArrayOfData, date);
+		break;
+
+	case 2:
+		cout << " Введите номер цеха: ";
+		cin >> element;
+		searchingArray = searchByWorkShopNumber(arrayOfProduct, sizeArrayOfData, element);
+		break;
+
+	case 3:
+		cout << " Введите название продукта: ";
+		cin >> nameOfProduct;
+		searchingArray = searchByProductName(arrayOfProduct, sizeArrayOfData, nameOfProduct);
+		break;
+
+	case 4:
+		cout << " Введите количество выпущенной продукции: ";
+		cin >> count;
+		searchingArray = searchByNumberOfProductsProduced(arrayOfProduct, sizeArrayOfData, count);
+		break;
+	case 5:
+		cout << " Введите ответсвенного в день выпуска продукции: ";
+		cin >> nameOfResponsible;
+		searchingArray = searchByResponsiblePerson(arrayOfProduct, sizeArrayOfData, nameOfResponsible);
+		break;
+	default:
+		cout << " такого числа нет попробуй снова";
+
+	}
+	productTableOutput(searchingArray, 1);
+
+}
+
+void outputIndividualTask(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
+	system("cls");
+	Date beginning, end;
+	int numberOfWorkshop;
+
+	cout << " Введите номер цеха: ";
+	cin >> numberOfWorkshop;
+
+	cout << " Введите период времени \n начало: \n	день: ";
+	cin >> beginning.day;
+	cout << "	месяц: ";
+	cin >> beginning.month;
+	cout << "	год:";
+	cin >> beginning.year;
+
+	cout << " Введите период времени \n конец: \n	день: ";
+	cin >> end.day;
+	cout << "	месяц: ";
+	cin >> end.month;
+	cout << "	год:";
+	cin >> end.year;
+	system("cls");
+	productTableOutput(OutputOfNumberOfManufacturedProducts(arrayOfProduct, beginning, end, numberOfWorkshop, sizeArrayOfData), 10);
 }
 
 // что должно выводить у обычного пошльзователя
 void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	// sortingChoice и searchingChoice переменные для выбора метода сортировки и поиска соответсвенно
 	
-	int choice, searchingChoice, date, element, count, numberOfWorkshop;
+	int choice, sizeArrayOfProduct;
 	string nameOfProduct, nameOfResponsible;
-	ProductInfo* searchingArray;
-	Date beginning, end;
 
 	while (true) {
 		system("cls");
@@ -120,80 +191,72 @@ void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 				break;
 
 			case 2:
-			system("cls");
-			productTableOutput(arrayOfProduct, sizeArrayOfData);
-			cout << " по какому методу будем искать:\n 1) по дню когда он был произведён \n"
-				<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
-				<< "\n 5) по имени ответсвенного \n";
-			cin >> searchingChoice;
-
-			system("cls");
-			productTableOutput(arrayOfProduct, sizeArrayOfData);
-
-			switch (choice) {
-
-			case 1:
-				cout << " Введите год: ";
-				cin >> date;
-				searchingArray = searchByDayWhenProductCreate(arrayOfProduct, sizeArrayOfData, date);
-				break;
-
-			case 2:
-				cout << " Введите номер цеха: ";
-				cin >> element;
-				searchingArray = searchByWorkShopNumber(arrayOfProduct, sizeArrayOfData, element);
+				outputSearch(arrayOfProduct, sizeArrayOfData);
 				break;
 
 			case 3:
-				cout << " Введите название продукта: ";
-				cin >> nameOfProduct;
-				searchingArray = searchByProductName(arrayOfProduct, sizeArrayOfData, nameOfProduct);
+				outputIndividualTask(arrayOfProduct, sizeArrayOfData);
 				break;
 
 			case 4:
-				cout << " Введите количество выпущенной продукции: ";
-				cin >> count;
-				searchingArray = searchByNumberOfProductsProduced(arrayOfProduct, sizeArrayOfData, count);
-				break;
-			case 5:
-				cout << " Введите ответсвенного в день выпуска продукции: ";
-				cin >> nameOfResponsible;
-				searchingArray = searchByResponsiblePerson(arrayOfProduct, sizeArrayOfData, nameOfResponsible);
-				break;
+				system("cls");
+				cout << " Прощайте! ";
+				return;
+
 			default:
-				cout << " такого числа нет попробуй снова";
+				system("cls");
+				cout << " Введите коректное число!";
+		}
+	}
+}
 
-			}
-			productTableOutput(searchingArray, 1);
+void outputWorkdWithUsers(Users* arrayOfUsers, int sizeArrayOfUsers) {
+	system("cls");
 
-		case 3:
-			system("cls");
-			cout << " Введите номер цеха: ";
-			cin >> numberOfWorkshop;
+	userTableOutput(arrayOfUsers, sizeArrayOfUsers);
+	int choiceOfUserTable, numberOfUser;
+	while (true) {
+		cout << "\n 1) удаление пользователя\n 2) одобрить регестрацию \n 3) сделать человека админом \n 4) выход";
+		cin >> choiceOfUserTable;
+		switch (choiceOfUserTable) {
+			case 1:
+				system("cls");
 
-			cout << " Введите период времени \n начало: \n	день: ";
-			cin >> beginning.day;
-			cout << "	месяц: ";
-			cin >> beginning.month;
-			cout << "	год:";
-			cin >> beginning.year;
+				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
+				cout << " Введите номер удаляемого пользователя: ";
+				cin >> numberOfUser;
 
-			cout << " Введите период времени \n конец: \n	день: ";
-			cin >> end.day;
-			cout << "	месяц: ";
-			cin >> end.month;
-			cout << "	год:";
-			cin >> end.year;
-			system("cls");
-			productTableOutput(OutputOfNumberOfManufacturedProducts(arrayOfProduct, beginning, end, numberOfWorkshop, sizeArrayOfData), 10);
-			break;
-		case 4:
-			system("cls");
-			cout << " Прощайте! ";
-			return;
-		default:
-			system("cls");
-			cout << " Введите коректное число!";
+				deleteUser(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
+				break;
+
+			case 2:
+				system("cls");
+
+				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
+				cout << " Введите номер одобряемого пользователя: ";
+				cin >> numberOfUser;
+
+				approveUser(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
+				break;
+
+			case 3:
+				system("cls");
+
+				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
+				cout << " Введите номер человека, который станет тоже админом: ";
+				cin >> numberOfUser;
+
+				makeUserAdmin(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
+				break;
+
+			case 4:
+				cout << " Прощайте! ";
+				return;
+
+			default:
+				system("cls");
+				cout << " Введите коректное число!";
+				break;
 		}
 	}
 }
@@ -204,16 +267,50 @@ void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArray
 	int choice;
 
 	while (true) {
-		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n 3) выход";
+		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n 3) Выйти из системы";
 
 		cin >> choice;
 		switch (choice) {
 			case 1:
-				productTableOutput(arrayOfProduct, sizeArrayOfData)
+				userOutput(arrayOfProduct, sizeArrayOfData);
+				break;
+			
+			case 2:
+				outputWorkdWithUsers(arrayOfUsers, sizeArrayOfUsers);
+				break;
+
+			case 3:
+				cout << "Прощайте";
+				return;
+
+			default:
+				cout << "Введите коректное число";
+				break;
 
 		}
 	}
 
+}
+
+void createNewAccount(Users* arrayOfUsers, int sizeArrayOfUsers) {
+	system("cls");
+	string password, username;
+	arrayOfUsers = resizeUserArray(arrayOfUsers, sizeArrayOfUsers + 1, sizeArrayOfUsers);
+	while (true) {
+		cout << " Введите логин: "; cin >> username;
+
+		if (!isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers - 1)) {
+			cout << " этот логин занят, введите новый!!";
+		}
+	}
+	cout << " Введите пароль: "; cin >> password;
+
+	getSalt(arrayOfUsers, password, sizeArrayOfUsers);
+	arrayOfUsers[sizeArrayOfUsers].saltedHashPassword = hashing(password);
+	arrayOfUsers[sizeArrayOfUsers].role = 0;
+	arrayOfUsers[sizeArrayOfUsers].access = 0;
+
+	cout << " Отлично записал, ожидайте одобрение вашего аккаунта";
 }
 
 void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
@@ -224,28 +321,38 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeAr
 	int choice;
 	cout << " Введите ваш выбор: ";
 	cin >> choice;
+	while(true){
+		switch (choice) {
+			case 1:
+				system("cls");
+				username = validation(arrayOfUsers, sizeArrayOfUsers);
 
-	switch (choice) {
-		case 1: 
-			username = validation(arrayOfUsers, sizeArrayOfUsers);
-			
-			if (isItAdmin(username, arrayOfUsers, sizeArrayOfUsers)) {
-				adminOutput(arrayOfProduct, arrayOfUsers, sizeArrayOfData, sizeArrayOfUsers);
-			}
-			else {
-				if (isAccess(username, arrayOfUsers, sizeArrayOfUsers)) {
-					userOutput(arrayOfProduct, sizeArrayOfData);
+				if (isItAdmin(username, arrayOfUsers, sizeArrayOfUsers)) {
+					adminOutput(arrayOfProduct, arrayOfUsers, sizeArrayOfData, sizeArrayOfUsers);
 				}
 				else {
-					cout << " У вас ещё нет доступа";
-					break;
+					if (isAccess(username, arrayOfUsers, sizeArrayOfUsers)) {
+						userOutput(arrayOfProduct, sizeArrayOfData);
+					}
+					else {
+						cout << " У вас ещё нет доступа";
+						break;
+					}
 				}
-			}
 
-		case 2:
+			case 2:
+				system("cls");
+				createNewAccount(arrayOfUsers, sizeArrayOfUsers);
+				break;
 
+			case 3:
+				system("cls");
+				cout << " Прощайте! ";
+				return;
 
-
+			default:
+				cout << " Введите коректное число!!";
+				break;
+		}
 	}
-
 }
