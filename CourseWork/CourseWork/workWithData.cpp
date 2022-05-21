@@ -18,7 +18,7 @@ ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfProduct
 
 void readProductFile(ProductInfo*& arrayOfProduct, int size) {
 	ifstream file;
-	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\productFile.txt");
+	file.open("productFile.txt");
 
 	if (!file.is_open()) {
 		cout << "We have a problem with Data" << endl;
@@ -244,7 +244,7 @@ ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, D
 
 void writeInFile(ProductInfo* arrayOfProduct, int size) {
 	ofstream file;
-	file.open("D:\gitHub\CourseWork\CourseWork\CourseWork\data\\productFile.txt", ios::out);
+	file.open("productFile.txt", ios::out);
 	for (int i = 0; i < size; i++) {
 		file << arrayOfProduct[i].dayWhenProductCreate.day << " ";
 		file << arrayOfProduct[i].dayWhenProductCreate.month << " ";

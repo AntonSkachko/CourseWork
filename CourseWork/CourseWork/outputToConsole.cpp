@@ -58,28 +58,30 @@ void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 		<< setw(2) << "номер цеха" << setw(2) << "|" << setw(2) << "название продукта" << setw(2) << "|"
 		<< setw(2) << "количество выпущенных единиц" << setw(2) << "|" << "имя ответсвенного по цеху в данный день" << setw(2) << "|\n";
 	for (int i = 0; i < sizeArrayOfData; i++) {
-		cout << "--------------------------------------------------------------------------------------------";
+		cout << "---------------------------------------------------------\n";
 		cout << "|" << setw(2) << i << setw(2) << "|" << setw(2) << arrayOfProduct[i].dayWhenProductCreate.day << "." <<
 			arrayOfProduct[i].dayWhenProductCreate.month << "." << arrayOfProduct[i].dayWhenProductCreate.year << setw(2) << "|"
 			<< setw(2) << arrayOfProduct[i].workShopNumber << setw(2) << "|" << setw(2) << arrayOfProduct[i].productName << setw(2) << "|"
 			<< setw(2) << arrayOfProduct[i].numberOfProductsProduced << setw(2) << "|" << arrayOfProduct[i].responsiblePerson << setw(2) << "|\n";
 	}
-	cout << "--------------------------------------------------------------------------------------------";
+	cout << "---------------------------------------------------------\n";
 	
 }
-
+// 19 хеш
+// 6 роль
+// 7 доступ
 // вывод таблицы пользователей
 void userTableOutput(Users* arrayOfUsers, int sizeArrayOfUsers) {
-	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(2) << "имя пользователя" << setw(2) << "|"
-		<< setw(2) << "хешированный пароль" << setw(2) << "|"
-		<< setw(2) << "роль" << setw(2) << "|" << setw(2) << "доступ" << setw(2) << "|\n";
+	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(17) << "имя пользователя" << setw(2) << "|"
+		<< setw(20) << "хешированный пароль" << setw(2) << "|"
+		<< setw(5) << "роль" << setw(2) << "|" << setw(7) << "доступ" << setw(3) << "|\n";
 	for (int i = 0; i < sizeArrayOfUsers; i++) {
-		cout << "--------------------------------------------------------------------------------------------";
-		cout << "|" << setw(2) << i << setw(2) << "|" << setw(2) << arrayOfUsers[i].nickname << setw(2) << "|"
-			<< setw(2) << arrayOfUsers[i].saltedHashPassword << setw(2) << "|"
-			<< setw(2) << arrayOfUsers[i].role << setw(2) << "|" << setw(2) << arrayOfUsers[i].access << setw(2) << "|\n";
+		cout << "--------------------------------------------------------------\n";
+		cout << "|" << setw(2) << i << setw(2) << "|" << setw(10) << arrayOfUsers[i].nickname << setw(9) << "|"
+			<< setw(20) << arrayOfUsers[i].saltedHashPassword << setw(2) << "|"
+			<< setw(3) << arrayOfUsers[i].role << setw(4) << "|" << setw(5) << arrayOfUsers[i].access << setw(5) << "|\n";
 	}
-	cout << "--------------------------------------------------------------------------------------------";
+	cout << "--------------------------------------------------------------";
 }
 
 void outputSorting(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
@@ -210,13 +212,13 @@ void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	}
 }
 
-void outputWorkdWithUsers(Users* arrayOfUsers, int sizeArrayOfUsers) {
+void outputWorkdWithUsers(Users*& arrayOfUsers, int& sizeArrayOfUsers) {
 	system("cls");
 
 	userTableOutput(arrayOfUsers, sizeArrayOfUsers);
 	int choiceOfUserTable, numberOfUser;
 	while (true) {
-		cout << "\n 1) удаление пользователя\n 2) одобрить регестрацию \n 3) сделать человека админом \n 4) выход";
+		cout << "\n 1) удаление пользователя\n 2) одобрить регестрацию \n 3) сделать человека админом \n 4) выход \n Введите номер: ";
 		cin >> choiceOfUserTable;
 		switch (choiceOfUserTable) {
 			case 1:
@@ -251,6 +253,7 @@ void outputWorkdWithUsers(Users* arrayOfUsers, int sizeArrayOfUsers) {
 
 			case 4:
 				cout << " Прощайте! ";
+				system("cls");
 				return;
 
 			default:
@@ -261,13 +264,13 @@ void outputWorkdWithUsers(Users* arrayOfUsers, int sizeArrayOfUsers) {
 	}
 }
 
-void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
+void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeArrayOfData, int& sizeArrayOfUsers) {
 	system("cls");
 
 	int choice;
 
 	while (true) {
-		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n 3) Выйти из системы";
+		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n 3) Выйти из системы \n Введите номер: ";
 
 		cin >> choice;
 		switch (choice) {
@@ -280,6 +283,7 @@ void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArray
 				break;
 
 			case 3:
+				
 				cout << "Прощайте";
 				return;
 
@@ -292,36 +296,44 @@ void adminOutput(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArray
 
 }
 
-void createNewAccount(Users* arrayOfUsers, int sizeArrayOfUsers) {
+void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
 	system("cls");
 	string password, username;
+
 	arrayOfUsers = resizeUserArray(arrayOfUsers, sizeArrayOfUsers + 1, sizeArrayOfUsers);
 	while (true) {
 		cout << " Введите логин: "; cin >> username;
 
-		if (!isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers - 1)) {
+		if (isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers - 1)) {
 			cout << " этот логин занят, введите новый!!";
+		}
+		else {
+			break;
 		}
 	}
 	cout << " Введите пароль: "; cin >> password;
 
-	getSalt(arrayOfUsers, password, sizeArrayOfUsers);
-	arrayOfUsers[sizeArrayOfUsers].saltedHashPassword = hashing(password);
-	arrayOfUsers[sizeArrayOfUsers].role = 0;
-	arrayOfUsers[sizeArrayOfUsers].access = 0;
+	getSalt(arrayOfUsers, password, sizeArrayOfUsers - 1);
+	password += arrayOfUsers[sizeArrayOfUsers - 1].salt;
+	arrayOfUsers[sizeArrayOfUsers - 1].saltedHashPassword = hashing(password);
+	arrayOfUsers[sizeArrayOfUsers - 1].role = 0;
+	arrayOfUsers[sizeArrayOfUsers - 1].access = 0;
+	arrayOfUsers[sizeArrayOfUsers - 1].nickname = username;
 
 	cout << " Отлично записал, ожидайте одобрение вашего аккаунта";
 }
 
-void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
+void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
 	setlocale(LC_ALL, "Russian");
-	cout << " 1) Войти \n2) Создать новый аккаунт \n3) Выйти из системы \n";
-
+	
 	string username;
 	int choice;
-	cout << " Введите ваш выбор: ";
-	cin >> choice;
 	while(true){
+		system("cls");
+		cout << " 1) Войти \n 2) Создать новый аккаунт \n 3) Выйти из системы \n";
+		cout << " Введите ваш выбор: ";
+		cin >> choice;
+
 		switch (choice) {
 			case 1:
 				system("cls");
@@ -339,15 +351,17 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users* arrayOfUsers, int sizeAr
 						break;
 					}
 				}
-
+				break;
 			case 2:
 				system("cls");
 				createNewAccount(arrayOfUsers, sizeArrayOfUsers);
+				system("pause");
 				break;
 
 			case 3:
 				system("cls");
 				cout << " Прощайте! ";
+				writeInUsersFile(arrayOfUsers, sizeArrayOfUsers);
 				return;
 
 			default:

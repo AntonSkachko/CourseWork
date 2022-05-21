@@ -1,8 +1,7 @@
 #include "workingWithUsers.h"
 
-void readUserFile(Users*& arrayOfUsers, int size) {
-	ifstream file;
-	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\Users.txt");
+void readUserFile(Users*& arrayOfUsers, int& size) {
+	ifstream file("account.txt");
 
 	if (!file.is_open()) {
 		cout << "We have a problem with users";
@@ -21,15 +20,14 @@ void readUserFile(Users*& arrayOfUsers, int size) {
 
 			numberOfLines++;
 		}
-		arrayOfUsers = resizeUserArray(arrayOfUsers, size - 1, size);
+		--size;
 		
 	}
 	file.close();
 }
 
 void writeInUsersFile(Users* arrayOfUsers, int size) {
-	ofstream file;
-	file.open("D:\\gitHub\\CourseWork\\CourseWork\\CourseWork\\data\\Users.txt", ios::out);
+	ofstream file("account.txt");
 	for (int i = 0; i < size; i++) {
 		file << arrayOfUsers[i].nickname << " ";
 		file << arrayOfUsers[i].saltedHashPassword << " ";
@@ -41,11 +39,10 @@ void writeInUsersFile(Users* arrayOfUsers, int size) {
 }
 
 
-Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize) {
+Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int& oldSize) {
 	if (oldSize == newSize) {
 		return arrayOfUsers;
 	}
-
 	Users* newArray = new Users[newSize];
 	oldSize = newSize < oldSize ? newSize : oldSize;
 	for (int i = 0; i < oldSize; i++) {
@@ -57,12 +54,12 @@ Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize) {
 }
 
 
-void deleteUser(Users*& arrayOfUsers, int size, int key) {
+void deleteUser(Users*& arrayOfUsers, int& size, int key) {
 
-	for (int i = key - 1; i < size - 1; i++) {
+	for (int i = key; i < size - 1; i++) {
 		arrayOfUsers[i] = arrayOfUsers[i + 1];
 	}
-	arrayOfUsers = resizeUserArray(arrayOfUsers, size - 1, size);
+	--size;
 }
 
 

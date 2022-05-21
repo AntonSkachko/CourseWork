@@ -25,14 +25,14 @@ bool isAccess(string username, Users* arrayOfUsers, int size);
 long long hashing(string& password);
 void getSalt(Users*& arrayOfUsers, string password, int key);
 long long getSaltedPassword(string& password, Users* arrayOfUsers, int key);
-Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int oldSize);
+Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int& oldSize);
 
 // work with file
 void writeInUsersFile(Users* arrayOfUsers, int size);
-void readUserFile(Users*& arrayOfUsers, int size);
+void readUserFile(Users*& arrayOfUsers, int& size);
 
 // admin
-void deleteUser(Users*& arrayOfUsers, int size, int key);
+void deleteUser(Users*& arrayOfUsers, int& size, int key);
 void approveUser(Users*& arrayOfUsers, int size, int key);
 void makeUserAdmin(Users*& arrayOfUsers, int size, int key);
 
