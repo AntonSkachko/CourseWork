@@ -24,9 +24,9 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData);
 void outputIndividualTask(ProductInfo* arrayOfProduct, int sizeArrayOfData);
 void outputWorkWithUsers(Users*& arrayOfUsers, int sizeArrayOfUsers);
 
-
+void displayAdditionalFeatures(ProductInfo*& arrayOfProduct, int &sizeArrayOfData, int choiceOfProduct);
 void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeArrayOfData, int& sizeArrayOfUsers);
-void userOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData);
+void userOutput(ProductInfo*& arrayOfProduct, int sizeArrayOfData, int choiceOfUsers);
 
 void createNewAccount(Users*& arrayOfUsers, int& sizeArrayOfUsers);
 

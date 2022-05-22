@@ -1,7 +1,6 @@
 #include "workWithData.h"
 
-ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfProduct
-) {
+ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo*& arrayOfProduct) {
 	if (oldSize == newSize) {
 		return arrayOfProduct;
 	}
@@ -16,9 +15,8 @@ ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfProduct
 	return newArray;
 }
 
-void readProductFile(ProductInfo*& arrayOfProduct, int size) {
-	ifstream file;
-	file.open("productFile.txt");
+void readProductFile(ProductInfo*& arrayOfProduct, int& size) {
+	ifstream file("productFile.txt");
 
 	if (!file.is_open()) {
 		cout << "We have a problem with Data" << endl;
@@ -39,7 +37,7 @@ void readProductFile(ProductInfo*& arrayOfProduct, int size) {
 
 			numberOfLines++;
 		}
-		arrayOfProduct = resizeArray(size, size - 1, arrayOfProduct);
+		--size;
 	}
 	file.close();
 }
@@ -47,18 +45,18 @@ void readProductFile(ProductInfo*& arrayOfProduct, int size) {
 
 void addInArray(ProductInfo*& arrayOfProduct, int& size) {
 	arrayOfProduct = resizeArray(size, size + 1, arrayOfProduct);
-	cout << "Enter day when this product create: \n";
-	cout << "Day: "; cin >> arrayOfProduct[size].dayWhenProductCreate.day;
-	cout << "Month: "; cin >> arrayOfProduct[size].dayWhenProductCreate.month;
-	cout << "Year: "; cin >> arrayOfProduct[size].dayWhenProductCreate.year;
+	cout << " ¬ведите дату когда продукт был изготовлен: \n";
+	cout << "	день: "; cin >> arrayOfProduct[size - 1].dayWhenProductCreate.day;
+	cout << "	мес€ц: "; cin >> arrayOfProduct[size - 1].dayWhenProductCreate.month;
+	cout << "	год: "; cin >> arrayOfProduct[size - 1].dayWhenProductCreate.year;
 
-	cout << "Enter work Shop number: "; cin >> arrayOfProduct[size].workShopNumber;
+	cout << " ¬ведите номер цеха: "; cin >> arrayOfProduct[size - 1].workShopNumber;
 	
-	cout << "Enter product Name: "; cin >> arrayOfProduct[size].productName;
+	cout << " ¬ведите название продукта: "; cin >> arrayOfProduct[size - 1].productName;
 	
-	cout << "Enter number of product produced: "; cin >> arrayOfProduct[size].numberOfProductsProduced;
+	cout << " ¬ведите количество выпущенных единиц: "; cin >> arrayOfProduct[size - 1].numberOfProductsProduced;
 
-	cout << "Enter resposible person: "; cin >> arrayOfProduct[size].responsiblePerson;
+	cout << " ¬ведите им€ ответвенного во врем€ производва: "; cin >> arrayOfProduct[size - 1].responsiblePerson;
 }
 
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end) {
@@ -69,29 +67,19 @@ bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end) {
 	return begin.workShopNumber < end.workShopNumber;
 }
 
-bool compByProductName(ProductInfo& begin, ProductInfo& end) {
-	return begin.productName < end.productName;
-}
-
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end) {
 	return begin.numberOfProductsProduced < end.numberOfProductsProduced;
 }
 
-bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end) {
-	return begin.responsiblePerson < end.responsiblePerson;
-	
-}
 
 void sorting(ProductInfo*& arrayOfProduct, int size, int choice) {
-	
 	/* 1 - sorting by date (int)
 	   2 - sorting by workShopNumber (int)
-	   3 - sorting by productName (string)
-	   4 - sorting by numberOfProductsProduced (int)
-	   5 - sorting by responsiblePerson (string)
+	   3 - sorting by numberOfProductsProduced (int)
+	   4 - sorting by productName (string) x
+	   5 - sorting by responsiblePerson (string) x
 	
 	*/
-	
 	switch (choice) {
 		// TO DO сделать более нормальную сортировку с учЄтом мес€ца и дн€
 		case 1:
@@ -103,17 +91,8 @@ void sorting(ProductInfo*& arrayOfProduct, int size, int choice) {
 			break;
 		
 		case 3:
-			sort(arrayOfProduct, arrayOfProduct + size, compByProductName);
-			break;
-
-		case 4: 
 			sort(arrayOfProduct, arrayOfProduct + size, compByNumberOfProductsProduced);
 			break;
-
-		case 5: 
-			sort(arrayOfProduct, arrayOfProduct + size, compByResponsiblePerson);
-			break;
-
 	}
 }
 
@@ -197,12 +176,12 @@ ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, st
 // будет выводитьс€ таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удал€ть
 void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement) {
-	//нужно придумать как удал€ть элемент с файла
 	
 	for (int i = deletingElement - 1; i < size - 1; i++) {
 		arrayOfProduct[i] = arrayOfProduct[i + 1];
 	}
 	arrayOfProduct = resizeArray(size, size - 1, arrayOfProduct);
+
 }
 
 // TO DO better !!!!!!!
@@ -223,8 +202,8 @@ int convertToDay(Date day) {
 	return numberOfDays;
 }
 
-ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, Date beginning, Date end, int numberOfWorkshop, int size) {
-	int sizeOfManufacturedProduct = 1;
+ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, Date beginning, Date end, int numberOfWorkshop, int size, int &sizeOfManufacturedProduct) {
+	sizeOfManufacturedProduct = 1;
 	ProductInfo* manufacturedProducts = new ProductInfo[sizeOfManufacturedProduct];
 
 	for (int i = 0; i < size; i++) {
@@ -237,14 +216,13 @@ ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, D
 			}
 		}
 	}
-	manufacturedProducts = resizeArray(sizeOfManufacturedProduct, sizeOfManufacturedProduct - 1, manufacturedProducts);
+	sizeOfManufacturedProduct--;
 	return manufacturedProducts;
 }
 // you need to complete individual Task
 
 void writeInFile(ProductInfo* arrayOfProduct, int size) {
-	ofstream file;
-	file.open("productFile.txt", ios::out);
+	ofstream file("productFile.txt");
 	for (int i = 0; i < size; i++) {
 		file << arrayOfProduct[i].dayWhenProductCreate.day << " ";
 		file << arrayOfProduct[i].dayWhenProductCreate.month << " ";

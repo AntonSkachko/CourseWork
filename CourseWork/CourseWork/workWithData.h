@@ -22,8 +22,8 @@ struct ProductInfo {
 };
 
 // work with file
-void readProductFile(ProductInfo*& arrayOfProduct, int size);
-ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo* arrayOfProduct);
+void readProductFile(ProductInfo*& arrayOfProduct, int& size);
+ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo*& arrayOfProduct);
 void addInArray(ProductInfo*& arrayOfProduct, int& size);
 void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement);
 void writeInFile(ProductInfo* arrayOfProduct, int size);
@@ -31,9 +31,7 @@ void writeInFile(ProductInfo* arrayOfProduct, int size);
 // work with array
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end);
 bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end);
-bool compByProductName(ProductInfo& begin, ProductInfo& end);
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end);
-bool compByResponsiblePerson(ProductInfo& begin, ProductInfo& end);
 void sorting(ProductInfo*& arrayOfProduct, int size, int choice);
 
 // searching
@@ -45,7 +43,7 @@ ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, st
 
 
 // make bettter name!!
-ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, Date beginning, Date end,int numberOfWorkshop, int size);
+ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, Date beginning, Date end,int numberOfWorkshop, int size, int &sizeOfManufacturedProduct);
 Date getCurrentDate();
 int convertToDay(Date day);
 
