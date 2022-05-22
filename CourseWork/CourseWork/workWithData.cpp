@@ -176,12 +176,19 @@ ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, st
 // будет выводиться таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удалять
 void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement) {
+	int indexOfBuf = 0, sizeOfBuf = indexOfBuf + 1;
 	
-	for (int i = deletingElement - 1; i < size - 1; i++) {
-		arrayOfProduct[i] = arrayOfProduct[i + 1];
+	ProductInfo* buf = new ProductInfo[sizeOfBuf];
+	for (int i = 0; i < size - 1; i++) {
+		if (i == deletingElement) {
+			continue;
+		}
+		buf[indexOfBuf] = arrayOfProduct[i];
+		indexOfBuf++;
+		buf = resizeArray(sizeOfBuf, sizeOfBuf + 1, buf);
 	}
-	arrayOfProduct = resizeArray(size, size - 1, arrayOfProduct);
-
+	arrayOfProduct = buf;
+	size = sizeOfBuf;
 }
 
 // TO DO better !!!!!!!

@@ -290,6 +290,7 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 		switch (choice) {
 			case 1:
 				while (true) {
+					system("cls");
 					productTableOutput(arrayOfProduct, sizeArrayOfData);
 					cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n 4) выход";
 					cout << "\n 5) добовление продукта\n 6) удаление продукта \n ";
@@ -310,12 +311,13 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 				break;
 			
 			case 2:
+				system("cls");
 				outputWorkdWithUsers(arrayOfUsers, sizeArrayOfUsers);
 				break;
 
 			case 3:
-				
-				cout << "Прощайте";
+				system("cls");
+				cout << "Прощайте\n";
 				return;
 
 			default:
@@ -371,12 +373,10 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 				username = validation(arrayOfUsers, sizeArrayOfUsers);
 
 				if (isItAdmin(username, arrayOfUsers, sizeArrayOfUsers)) {
-					productTableOutput(arrayOfProduct, sizeArrayOfData);
 					adminOutput(arrayOfProduct, arrayOfUsers, sizeArrayOfData, sizeArrayOfUsers);
 				}
 				else {
 					if (isAccess(username, arrayOfUsers, sizeArrayOfUsers)) {
-						productTableOutput(arrayOfProduct, sizeArrayOfData);
 						cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n 4) выход\n";
 						cin >> choiceOfUsers;
 						if (choiceOfUsers == 4) {
