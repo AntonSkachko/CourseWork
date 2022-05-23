@@ -187,6 +187,7 @@ void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement)
 	}
 	arrayOfProduct = buf;
 	size --;
+	delete[] buf;
 }
 
 // TO DO better !!!!!!!

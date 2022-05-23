@@ -109,7 +109,7 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	string nameOfResponsible, nameOfProduct;
 	int searchingChoice, date, element, count, numberOfWorkshop;
 	productTableOutput(arrayOfProduct, sizeArrayOfData);
-	cout << " по какому методу будем искать:\n 1) по дню когда он был произведён \n"
+	cout << " по какому методу будем искать:\n 1) по году когда он был произведён \n"
 		<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
 		<< "\n 5) по имени ответсвенного \n 6) Выход \n Введите число: ";
 	cin >> searchingChoice;
