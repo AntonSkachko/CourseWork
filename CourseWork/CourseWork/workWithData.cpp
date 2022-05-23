@@ -19,7 +19,7 @@ void readProductFile(ProductInfo*& arrayOfProduct, int& size) {
 	ifstream file("productFile.txt");
 
 	if (!file.is_open()) {
-		cout << "We have a problem with Data" << endl;
+		cout << " У нас проблемы базой данных продукта" << endl;
 	}
 	else {
 		int numberOfLines = 0;
@@ -32,8 +32,8 @@ void readProductFile(ProductInfo*& arrayOfProduct, int& size) {
 			file >> arrayOfProduct[numberOfLines].dayWhenProductCreate.year;
 			file >> arrayOfProduct[numberOfLines].workShopNumber;
 			file >> arrayOfProduct[numberOfLines].productName;
-			file >> arrayOfProduct[numberOfLines].numberOfProductsProduced;
 			file >> arrayOfProduct[numberOfLines].responsiblePerson;
+			file >> arrayOfProduct[numberOfLines].numberOfProductsProduced;
 
 			numberOfLines++;
 		}
@@ -176,19 +176,17 @@ ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, st
 // будет выводиться таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удалять
 void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement) {
-	int indexOfBuf = 0, sizeOfBuf = indexOfBuf + 1;
+	int indexOfBuf = 0;
 	
-	ProductInfo* buf = new ProductInfo[sizeOfBuf];
+	ProductInfo* buf = new ProductInfo[size - 1];
 	for (int i = 0; i < size - 1; i++) {
-		if (i == deletingElement) {
-			continue;
+		if (i != deletingElement) {
+			buf[indexOfBuf] = arrayOfProduct[i];
+			indexOfBuf++;
 		}
-		buf[indexOfBuf] = arrayOfProduct[i];
-		indexOfBuf++;
-		buf = resizeArray(sizeOfBuf, sizeOfBuf + 1, buf);
 	}
 	arrayOfProduct = buf;
-	size = sizeOfBuf;
+	size --;
 }
 
 // TO DO better !!!!!!!

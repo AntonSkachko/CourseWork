@@ -1,4 +1,4 @@
-#include "outputToConsole.h"
+п»ї#include "outputToConsole.h"
 
 string EnterPassword() {
 	string pass;
@@ -29,65 +29,70 @@ string EnterPassword() {
 }
 
 string validation(Users* arrayOfUsers, int sizeArrayOfUsers) {
-	int attempts = 3; // количество попыток у пользователя
+	int attempts = 3; // РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРїС‹С‚РѕРє Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	string username, password;
 	while (true) {
 		system("cls");
 
-		cout << " Введите логин: "; cin >> username;
-		cout << " Введите пароль: ";
+		cout << " Р’РІРµРґРёС‚Рµ Р»РѕРіРёРЅ: "; cin >> username;
+		cout << " Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ: ";
 		password = EnterPassword();
 
 		if (isPasswordCorrect(password, username, arrayOfUsers, sizeArrayOfUsers) &&
 			isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers)) {
 			return username;
 		}
-		cout << " Неверный пароль или логин, повторыите попытку, у вас осталось попыток " << attempts;
+		cout << " РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ РёР»Рё Р»РѕРіРёРЅ, РїРѕРІС‚РѕСЂС‹РёС‚Рµ РїРѕРїС‹С‚РєСѓ, Сѓ РІР°СЃ РѕСЃС‚Р°Р»РѕСЃСЊ РїРѕРїС‹С‚РѕРє " << attempts;
 		--attempts;
 		if (attempts == 0) {
-			cout << " Ваш лимит исчерпан";
+			cout << " Р’Р°С€ Р»РёРјРёС‚ РёСЃС‡РµСЂРїР°РЅ";
 			break;
 		}
 	}
 
 }
 
-// вывод таблицы продуктов склада
+// РЅРѕРјРµСЂ С†РµС…Р° 11
+// РЅР°Р·РІР°РЅРёРµ РїСЂРѕРґСѓРєС‚Р° 17
+// РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РїСѓС‰РµРЅРЅС‹С… РµРґРёРЅРёС† 28
+// РёРјСЏ РѕС‚РІРµС‚СЃРІРµРЅРЅРѕРіРѕ 17
+
+// РІС‹РІРѕРґ С‚Р°Р±Р»РёС†С‹ РїСЂРѕРґСѓРєС‚РѕРІ СЃРєР»Р°РґР°
 void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
-	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(2) << "день когда продук произведён" << setw(2) << "|"
-		<< setw(2) << "номер цеха" << setw(2) << "|" << setw(2) << "название продукта" << setw(2) << "|"
-		<< setw(2) << "количество выпущенных единиц" << setw(2) << "|" << "имя ответсвенного по цеху в данный день" << setw(2) << "|\n";
+	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(18) << "РґР°С‚Р° РїСЂРѕРёР·РІРѕРґСЃС‚РІР°" << setw(2) << "|"
+		<< setw(11) << "РЅРѕРјРµСЂ С†РµС…Р°" << setw(2) << "|" << setw(18) << "РЅР°Р·РІР°РЅРёРµ РїСЂРѕРґСѓРєС‚Р°" << setw(2) << "|"
+		<< setw(29) << "РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РїСѓС‰РµРЅРЅС‹С… РµРґРёРЅРёС†" << setw(2) << "|" << setw(18) << "РёРјСЏ РѕС‚РІРµС‚СЃРІРµРЅРЅРѕРіРѕ" << setw(3) << "|\n";
 	for (int i = 0; i < sizeArrayOfData; i++) {
-		cout << "---------------------------------------------------------\n";
-		cout << "|" << setw(2) << i << setw(2) << "|" << setw(2) << arrayOfProduct[i].dayWhenProductCreate.day << "." <<
-			arrayOfProduct[i].dayWhenProductCreate.month << "." << arrayOfProduct[i].dayWhenProductCreate.year << setw(2) << "|"
-			<< setw(2) << arrayOfProduct[i].workShopNumber << setw(2) << "|" << setw(2) << arrayOfProduct[i].productName << setw(2) << "|"
-			<< setw(2) << arrayOfProduct[i].numberOfProductsProduced << setw(2) << "|" << arrayOfProduct[i].responsiblePerson << setw(2) << "|\n";
+		cout << "|-----------------------------------------------------------------------------------------------------------|\n";
+		cout << "|" << setw(2) << i << setw(2) << "|" << setw(7) << arrayOfProduct[i].dayWhenProductCreate.day << "." <<
+			arrayOfProduct[i].dayWhenProductCreate.month << "." << arrayOfProduct[i].dayWhenProductCreate.year << setw(5) << "|"
+			<< setw(7) << arrayOfProduct[i].workShopNumber << setw(6) << "|" << setw(11) << arrayOfProduct[i].productName << setw(9) << "|"
+			<< setw(15) << arrayOfProduct[i].numberOfProductsProduced << setw(16) << "|" << setw(13) << arrayOfProduct[i].responsiblePerson << setw(8) << "|\n";
 	}
-	cout << "---------------------------------------------------------\n";
+	cout << "|-----------------------------------------------------------------------------------------------------------|\n";
 	
 }
 
-// вывод таблицы пользователей
+// РІС‹РІРѕРґ С‚Р°Р±Р»РёС†С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 void userTableOutput(Users* arrayOfUsers, int sizeArrayOfUsers) {
-	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(17) << "имя пользователя" << setw(2) << "|"
-		<< setw(20) << "хешированный пароль" << setw(2) << "|"
-		<< setw(5) << "роль" << setw(2) << "|" << setw(7) << "доступ" << setw(3) << "|\n";
+	cout << "|" << setw(2) << "#" << setw(2) << "|" << setw(17) << "РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ" << setw(2) << "|"
+		<< setw(20) << "С…РµС€РёСЂРѕРІР°РЅРЅС‹Р№ РїР°СЂРѕР»СЊ" << setw(2) << "|"
+		<< setw(5) << "СЂРѕР»СЊ" << setw(2) << "|" << setw(7) << "РґРѕСЃС‚СѓРї" << setw(3) << "|\n";
 	for (int i = 0; i < sizeArrayOfUsers; i++) {
-		cout << "--------------------------------------------------------------\n";
+		cout << "|------------------------------------------------------------|\n";
 		cout << "|" << setw(2) << i << setw(2) << "|" << setw(10) << arrayOfUsers[i].nickname << setw(9) << "|"
 			<< setw(20) << arrayOfUsers[i].saltedHashPassword << setw(2) << "|"
 			<< setw(3) << arrayOfUsers[i].role << setw(4) << "|" << setw(5) << arrayOfUsers[i].access << setw(5) << "|\n";
 	}
-	cout << "--------------------------------------------------------------";
+	cout << "|------------------------------------------------------------|";
 }
 
 void outputSorting(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	
 	system("cls");
 	productTableOutput(arrayOfProduct, sizeArrayOfData);
-	cout << " по какому методу будем соритровать:\n 1) по году когда он был произведён \n"
-		<< " 2) сортировка по номеру цеха \n 3) по количеству выпущенных единиц \n 4) выход\n Введите число: ";
+	cout << " РїРѕ РєР°РєРѕРјСѓ РјРµС‚РѕРґСѓ Р±СѓРґРµРј СЃРѕСЂРёС‚СЂРѕРІР°С‚СЊ:\n 1) РїРѕ РіРѕРґСѓ РєРѕРіРґР° РѕРЅ Р±С‹Р» РїСЂРѕРёР·РІРµРґС‘РЅ \n"
+		<< " 2) СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РЅРѕРјРµСЂСѓ С†РµС…Р° \n 3) РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РІС‹РїСѓС‰РµРЅРЅС‹С… РµРґРёРЅРёС† \n 4) РІС‹С…РѕРґ\n Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ";
 	int sortingChoice;
 	cin >> sortingChoice;
 	if (sortingChoice == 4) {
@@ -104,9 +109,9 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	string nameOfResponsible, nameOfProduct;
 	int searchingChoice, date, element, count, numberOfWorkshop;
 	productTableOutput(arrayOfProduct, sizeArrayOfData);
-	cout << " по какому методу будем искать:\n 1) по дню когда он был произведён \n"
-		<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
-		<< "\n 5) по имени ответсвенного \n 6) Выход \n Введите число: ";
+	cout << " РїРѕ РєР°РєРѕРјСѓ РјРµС‚РѕРґСѓ Р±СѓРґРµРј РёСЃРєР°С‚СЊ:\n 1) РїРѕ РґРЅСЋ РєРѕРіРґР° РѕРЅ Р±С‹Р» РїСЂРѕРёР·РІРµРґС‘РЅ \n"
+		<< " СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РЅРѕРјРµСЂСѓ С†РµС…Р° \n 3) РїРѕ РЅР°Р·РІР°РЅРёСЋ РїСЂРѕРґСѓРєС‚Р° \n 4) РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РІС‹РїСѓС‰РµРЅРЅС‹С… РµРґРёРЅРёС†"
+		<< "\n 5) РїРѕ РёРјРµРЅРё РѕС‚РІРµС‚СЃРІРµРЅРЅРѕРіРѕ \n 6) Р’С‹С…РѕРґ \n Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ";
 	cin >> searchingChoice;
 
 	system("cls");
@@ -115,37 +120,37 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	switch (searchingChoice) {
 
 	case 1:
-		cout << " Введите год: ";
+		cout << " Р’РІРµРґРёС‚Рµ РіРѕРґ: ";
 		cin >> date;
 		searchingArray = searchByDayWhenProductCreate(arrayOfProduct, sizeArrayOfData, date);
 		break;
 
 	case 2:
-		cout << " Введите номер цеха: ";
+		cout << " Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С†РµС…Р°: ";
 		cin >> element;
 		searchingArray = searchByWorkShopNumber(arrayOfProduct, sizeArrayOfData, element);
 		break;
 
 	case 3:
-		cout << " Введите название продукта: ";
+		cout << " Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РїСЂРѕРґСѓРєС‚Р°: ";
 		cin >> nameOfProduct;
 		searchingArray = searchByProductName(arrayOfProduct, sizeArrayOfData, nameOfProduct);
 		break;
 
 	case 4:
-		cout << " Введите количество выпущенной продукции: ";
+		cout << " Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РїСѓС‰РµРЅРЅРѕР№ РїСЂРѕРґСѓРєС†РёРё: ";
 		cin >> count;
 		searchingArray = searchByNumberOfProductsProduced(arrayOfProduct, sizeArrayOfData, count);
 		break;
 	case 5:
-		cout << " Введите ответсвенного в день выпуска продукции: ";
+		cout << " Р’РІРµРґРёС‚Рµ РѕС‚РІРµС‚СЃРІРµРЅРЅРѕРіРѕ РІ РґРµРЅСЊ РІС‹РїСѓСЃРєР° РїСЂРѕРґСѓРєС†РёРё: ";
 		cin >> nameOfResponsible;
 		searchingArray = searchByResponsiblePerson(arrayOfProduct, sizeArrayOfData, nameOfResponsible);
 		break;
 	case 6:
 		return;
 	default:
-		cout << " такого числа нет попробуй снова";
+		cout << " С‚Р°РєРѕРіРѕ С‡РёСЃР»Р° РЅРµС‚ РїРѕРїСЂРѕР±СѓР№ СЃРЅРѕРІР°";
 	}
 	productTableOutput(searchingArray, 1);
 	system("pause");
@@ -158,21 +163,21 @@ void outputIndividualTask(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	Date beginning, end;
 	int numberOfWorkshop;
 
-	cout << " Введите номер цеха: ";
+	cout << " Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С†РµС…Р°: ";
 	cin >> numberOfWorkshop;
 
-	cout << " Введите период времени \n начало: \n	день: ";
+	cout << " Р’РІРµРґРёС‚Рµ РїРµСЂРёРѕРґ РІСЂРµРјРµРЅРё \n РЅР°С‡Р°Р»Рѕ: \n	РґРµРЅСЊ: ";
 	cin >> beginning.day;
-	cout << "	месяц: ";
+	cout << "	РјРµСЃСЏС†: ";
 	cin >> beginning.month;
-	cout << "	год:";
+	cout << "	РіРѕРґ:";
 	cin >> beginning.year;
 
-	cout << " Введите период времени \n конец: \n	день: ";
+	cout << " Р’РІРµРґРёС‚Рµ РїРµСЂРёРѕРґ РІСЂРµРјРµРЅРё \n РєРѕРЅРµС†: \n	РґРµРЅСЊ: ";
 	cin >> end.day;
-	cout << "	месяц: ";
+	cout << "	РјРµСЃСЏС†: ";
 	cin >> end.month;
-	cout << "	год:";
+	cout << "	РіРѕРґ:";
 	cin >> end.year;
 	system("cls");
 	int buf_size;
@@ -182,9 +187,9 @@ void outputIndividualTask(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	system("cls");
 }
 
-// что должно выводить у обычного пошльзователя
+// С‡С‚Рѕ РґРѕР»Р¶РЅРѕ РІС‹РІРѕРґРёС‚СЊ Сѓ РѕР±С‹С‡РЅРѕРіРѕ РїРѕС€Р»СЊР·РѕРІР°С‚РµР»СЏ
 void userOutput(ProductInfo*& arrayOfProduct, int sizeArrayOfData, int choice) {
-	// sortingChoice и searchingChoice переменные для выбора метода сортировки и поиска соответсвенно
+	// sortingChoice Рё searchingChoice РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ РІС‹Р±РѕСЂР° РјРµС‚РѕРґР° СЃРѕСЂС‚РёСЂРѕРІРєРё Рё РїРѕРёСЃРєР° СЃРѕРѕС‚РІРµС‚СЃРІРµРЅРЅРѕ
 	
 	int sizeArrayOfProduct;
 	string nameOfProduct, nameOfResponsible;
@@ -204,7 +209,7 @@ void userOutput(ProductInfo*& arrayOfProduct, int sizeArrayOfData, int choice) {
 
 		default:
 			system("cls");
-			cout << " Введите коректное число!";
+			cout << " Р’РІРµРґРёС‚Рµ РєРѕСЂРµРєС‚РЅРѕРµ С‡РёСЃР»Рѕ!";
 	}
 }
 
@@ -214,14 +219,14 @@ void outputWorkdWithUsers(Users*& arrayOfUsers, int& sizeArrayOfUsers) {
 	userTableOutput(arrayOfUsers, sizeArrayOfUsers);
 	int choiceOfUserTable, numberOfUser;
 	while (true) {
-		cout << "\n 1) удаление пользователя\n 2) одобрить регестрацию \n 3) сделать человека админом \n 4) выход \n Введите номер: ";
+		cout << "\n 1) СѓРґР°Р»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ\n 2) РѕРґРѕР±СЂРёС‚СЊ СЂРµРіРµСЃС‚СЂР°С†РёСЋ \n 3) СЃРґРµР»Р°С‚СЊ С‡РµР»РѕРІРµРєР° Р°РґРјРёРЅРѕРј \n 4) РІС‹С…РѕРґ \n Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ: ";
 		cin >> choiceOfUserTable;
 		switch (choiceOfUserTable) {
 			case 1:
 				system("cls");
 
 				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
-				cout << " Введите номер удаляемого пользователя: ";
+				cout << " Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СѓРґР°Р»СЏРµРјРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: ";
 				cin >> numberOfUser;
 
 				deleteUser(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
@@ -231,7 +236,7 @@ void outputWorkdWithUsers(Users*& arrayOfUsers, int& sizeArrayOfUsers) {
 				system("cls");
 
 				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
-				cout << " Введите номер одобряемого пользователя: ";
+				cout << " Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РѕРґРѕР±СЂСЏРµРјРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: ";
 				cin >> numberOfUser;
 
 				approveUser(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
@@ -241,20 +246,20 @@ void outputWorkdWithUsers(Users*& arrayOfUsers, int& sizeArrayOfUsers) {
 				system("cls");
 
 				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
-				cout << " Введите номер человека, который станет тоже админом: ";
+				cout << " Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‡РµР»РѕРІРµРєР°, РєРѕС‚РѕСЂС‹Р№ СЃС‚Р°РЅРµС‚ С‚РѕР¶Рµ Р°РґРјРёРЅРѕРј: ";
 				cin >> numberOfUser;
 
 				makeUserAdmin(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
 				break;
 
 			case 4:
-				cout << " Прощайте! ";
+				cout << " РџСЂРѕС‰Р°Р№С‚Рµ! ";
 				system("cls");
 				return;
 
 			default:
 				system("cls");
-				cout << " Введите коректное число!";
+				cout << " Р’РІРµРґРёС‚Рµ РєРѕСЂРµРєС‚РЅРѕРµ С‡РёСЃР»Рѕ!";
 				break;
 		}
 	}
@@ -271,7 +276,7 @@ void displayAdditionalFeatures(ProductInfo*& arrayOfProduct, int& sizeArrayOfDat
 		case 6:
 			system("cls");
 			productTableOutput(arrayOfProduct, sizeArrayOfData);
-			cout << " Введите номер удаляемого элемента: ";
+			cout << " Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СѓРґР°Р»СЏРµРјРѕРіРѕ СЌР»РµРјРµРЅС‚Р°: ";
 			cin >> deletingElement;
 			deleteElement(arrayOfProduct, sizeArrayOfData, deletingElement);
 			break;
@@ -279,12 +284,12 @@ void displayAdditionalFeatures(ProductInfo*& arrayOfProduct, int& sizeArrayOfDat
 }
 
 void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeArrayOfData, int& sizeArrayOfUsers) {
-	system("cls");
 
 	int choice, choiceOfProduct;
 
 	while (true) {
-		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n 3) Выйти из системы \n Введите номер: ";
+		system("cls");
+		cout << " 1) СЂР°Р±РѕС‚Р° СЃ С‚Р°Р±Р»РёС†РµР№ РїСЂРѕРґСѓРєС†РёРё \n 2) СЂР°Р±РѕС‚Р° СЃ С‚Р°Р±Р»РёС†РµР№ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ \n 3) Р’С‹Р№С‚Рё РёР· СЃРёСЃС‚РµРјС‹ \n Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ: ";
 
 		cin >> choice;
 		switch (choice) {
@@ -292,15 +297,15 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 				while (true) {
 					system("cls");
 					productTableOutput(arrayOfProduct, sizeArrayOfData);
-					cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n 4) выход";
-					cout << "\n 5) добовление продукта\n 6) удаление продукта \n ";
-					cout << " Введите номер: ";
+					cout << "\n 1) СЃРѕСЂС‚РёСЂРѕРІРєР° \n 2) РїРѕРёСЃРє \n 3) РІС‹РІРѕРґ РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РїСѓС‰РµРЅРЅС‹С… РёР·РґРµР»РёР№ РїРѕ РєР°Р¶РґРѕРјСѓ РЅР°РёРјРµРЅРѕРІР°РЅРёСЋ \n 4) РІС‹С…РѕРґ";
+					cout << "\n 5) РґРѕР±РѕРІР»РµРЅРёРµ РїСЂРѕРґСѓРєС‚Р°\n 6) СѓРґР°Р»РµРЅРёРµ РїСЂРѕРґСѓРєС‚Р° \n ";
+					cout << " Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ: ";
 					cin >> choiceOfProduct;
 					if (choiceOfProduct < 4) {
 						userOutput(arrayOfProduct, sizeArrayOfData, choiceOfProduct);
 					}
 					else if(choiceOfProduct == 4) {
-						cout << " Прощайте\n";
+						cout << " РџСЂРѕС‰Р°Р№С‚Рµ\n";
 						break;
 					}
 					else {
@@ -317,11 +322,11 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 
 			case 3:
 				system("cls");
-				cout << "Прощайте\n";
+				cout << "РџСЂРѕС‰Р°Р№С‚Рµ\n";
 				return;
 
 			default:
-				cout << "Введите коректное число";
+				cout << "Р’РІРµРґРёС‚Рµ РєРѕСЂРµРєС‚РЅРѕРµ С‡РёСЃР»Рѕ";
 				break;
 
 		}
@@ -332,19 +337,25 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
 	system("cls");
 	string password, username;
-
+	int countOfMistake = 3;
 	arrayOfUsers = resizeUserArray(arrayOfUsers, sizeArrayOfUsers + 1, sizeArrayOfUsers);
-	while (true) {
-		cout << " Введите логин: "; cin >> username;
+	while (countOfMistake != 0) {
+		cout << " Р’РІРµРґРёС‚Рµ Р»РѕРіРёРЅ: "; cin >> username;
 
 		if (isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers - 1)) {
-			cout << " этот логин занят, введите новый!!";
+			cout << " СЌС‚РѕС‚ Р»РѕРіРёРЅ Р·Р°РЅСЏС‚, РІРІРµРґРёС‚Рµ РЅРѕРІС‹Р№!!\n";
+			cout << " РЈ РІР°СЃ РѕСЃС‚Р°Р»РѕСЃСЊ РІРІРµСЃС‚Рё " << countOfMistake << " СЂР°Р·Р°\n";
+			countOfMistake--;
+			if (countOfMistake == 0) {
+				cout << " РЈ РІР°СЃ РЅРµ РѕСЃС‚Р°Р»РѕСЃСЊ РїРѕРїС‹С‚РѕРє";
+				return;
+			}
 		}
 		else {
 			break;
 		}
 	}
-	cout << " Введите пароль: "; cin >> password;
+	cout << " Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ: "; cin >> password;
 
 	getSalt(arrayOfUsers, password, sizeArrayOfUsers - 1);
 	password += arrayOfUsers[sizeArrayOfUsers - 1].salt;
@@ -353,7 +364,7 @@ void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
 	arrayOfUsers[sizeArrayOfUsers - 1].access = 0;
 	arrayOfUsers[sizeArrayOfUsers - 1].nickname = username;
 
-	cout << " Отлично записал, ожидайте одобрение вашего аккаунта";
+	cout << " РћС‚Р»РёС‡РЅРѕ Р·Р°РїРёСЃР°Р», РѕР¶РёРґР°Р№С‚Рµ РѕРґРѕР±СЂРµРЅРёРµ РІР°С€РµРіРѕ Р°РєРєР°СѓРЅС‚Р°";
 }
 
 void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
@@ -363,8 +374,8 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 	int choice, choiceOfUsers;
 	while(true){
 		system("cls");
-		cout << " 1) Войти \n 2) Создать новый аккаунт \n 3) Выйти из системы \n";
-		cout << " Введите ваш выбор: ";
+		cout << " 1) Р’РѕР№С‚Рё \n 2) РЎРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ Р°РєРєР°СѓРЅС‚ \n 3) Р’С‹Р№С‚Рё РёР· СЃРёСЃС‚РµРјС‹ \n";
+		cout << " Р’РІРµРґРёС‚Рµ РІР°С€ РІС‹Р±РѕСЂ: ";
 		cin >> choice;
 
 		switch (choice) {
@@ -377,16 +388,16 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 				}
 				else {
 					if (isAccess(username, arrayOfUsers, sizeArrayOfUsers)) {
-						cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n 4) выход\n";
+						cout << "\n 1) СЃРѕСЂС‚РёСЂРѕРІРєР° \n 2) РїРѕРёСЃРє \n 3) РІС‹РІРѕРґ РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹РїСѓС‰РµРЅРЅС‹С… РёР·РґРµР»РёР№ РїРѕ РєР°Р¶РґРѕРјСѓ РЅР°РёРјРµРЅРѕРІР°РЅРёСЋ \n 4) РІС‹С…РѕРґ\n";
 						cin >> choiceOfUsers;
 						if (choiceOfUsers == 4) {
-							cout << " Прощайте!\n ";
+							cout << " РџСЂРѕС‰Р°Р№С‚Рµ!\n ";
 							break;
 						}
 						userOutput(arrayOfProduct, sizeArrayOfData, choiceOfUsers);
 					}
 					else {
-						cout << " У вас ещё нет доступа";
+						cout << " РЈ РІР°СЃ РµС‰С‘ РЅРµС‚ РґРѕСЃС‚СѓРїР°";
 						break;
 					}
 				}
@@ -399,13 +410,13 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 
 			case 3:
 				system("cls");
-				cout << " Прощайте! ";
+				cout << " РџСЂРѕС‰Р°Р№С‚Рµ! ";
 				writeInUsersFile(arrayOfUsers, sizeArrayOfUsers);
 				writeInFile(arrayOfProduct, sizeArrayOfData);
 				return;
 
 			default:
-				cout << " Введите коректное число!!";
+				cout << " Р’РІРµРґРёС‚Рµ РєРѕСЂРµРєС‚РЅРѕРµ С‡РёСЃР»Рѕ!!";
 				break;
 		}
 	}

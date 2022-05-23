@@ -2,9 +2,8 @@
 
 void readUserFile(Users*& arrayOfUsers, int& size) {
 	ifstream file("account.txt");
-
 	if (!file.is_open()) {
-		cout << "We have a problem with users";
+		cout << "у нас проблемы с чтения файла с пользователями\n";
 	}
 	else {
 		int numberOfLines = 0;
