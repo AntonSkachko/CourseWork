@@ -42,7 +42,8 @@ string validation(Users* arrayOfUsers, int sizeArrayOfUsers) {
 			isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers)) {
 			return username;
 		}
-		cout << " Неверный пароль или логин, повторыите попытку, у вас осталось попыток " << attempts;
+		cout << " Неверный пароль или логин, повторыите попытку, у вас осталось попыток " << attempts << endl;
+		system("pause");
 		--attempts;
 		if (attempts == 0) {
 			cout << " Ваш лимит исчерпан";
@@ -214,28 +215,22 @@ void userOutput(ProductInfo*& arrayOfProduct, int sizeArrayOfData, int choice) {
 }
 
 void outputWorkdWithUsers(Users*& arrayOfUsers, int& sizeArrayOfUsers) {
-	system("cls");
-
-	userTableOutput(arrayOfUsers, sizeArrayOfUsers);
 	int choiceOfUserTable, numberOfUser;
+	string newName;
 	while (true) {
-		cout << "\n 1) удаление пользователя\n 2) одобрить регестрацию \n 3) сделать человека админом \n 4) выход \n Введите номер: ";
+		system("cls");
+		userTableOutput(arrayOfUsers, sizeArrayOfUsers);
+		cout << "\n 1) удаление пользователя\n 2) одобрить регестрацию \n 3) сделать человека админом \n 4) изменить имя пользователя \n 5) выход \n Введите номер: ";
 		cin >> choiceOfUserTable;
 		switch (choiceOfUserTable) {
 			case 1:
-				system("cls");
-
-				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
-				cout << " Введите номер удаляемого пользователя: ";
+				cout << "\n Введите номер удаляемого пользователя: ";
 				cin >> numberOfUser;
 
 				deleteUser(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
 				break;
 
 			case 2:
-				system("cls");
-
-				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
 				cout << " Введите номер одобряемого пользователя: ";
 				cin >> numberOfUser;
 
@@ -243,16 +238,20 @@ void outputWorkdWithUsers(Users*& arrayOfUsers, int& sizeArrayOfUsers) {
 				break;
 
 			case 3:
-				system("cls");
-
-				userTableOutput(arrayOfUsers, sizeArrayOfUsers);
 				cout << " Введите номер человека, который станет тоже админом: ";
 				cin >> numberOfUser;
 
 				makeUserAdmin(arrayOfUsers, sizeArrayOfUsers, numberOfUser);
 				break;
-
+			
 			case 4:
+				cout << " Введите номер человека, у коготого изменим имя: ";
+				cin >> numberOfUser;
+				cout << " Введите новоё имя: ";
+				cin >> newName;
+				changeUsername(arrayOfUsers, sizeArrayOfUsers, numberOfUser, newName);
+				break;
+			case 5:
 				cout << " Прощайте! ";
 				system("cls");
 				return;
@@ -397,7 +396,9 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 						userOutput(arrayOfProduct, sizeArrayOfData, choiceOfUsers);
 					}
 					else {
-						cout << " У вас ещё нет доступа";
+						system("cls");
+						cout << " У вас ещё нет доступа\n";
+						system("pause");
 						break;
 					}
 				}

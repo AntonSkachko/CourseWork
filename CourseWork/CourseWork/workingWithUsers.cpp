@@ -123,7 +123,7 @@ bool isItAdmin(string username, Users* arrayOfUsers, int size) {
 }
 
 bool isAccess(string username, Users* arrayOfUsers, int size) {
-
+	// елси человек под именем username одобрен, то функция выведет 1, а иначе 0
 	for (int i = 0; i < size; i++) {
 		if (arrayOfUsers[i].nickname == username) {
 			return arrayOfUsers[i].access;
@@ -137,4 +137,8 @@ void approveUser(Users*& arrayOfUsers, int size, int key) {
 
 void makeUserAdmin(Users*& arrayOfUsers, int size, int key) {
 	arrayOfUsers[key].role = 1;
+}
+
+void changeUsername(Users*& arrayOfUsers, int size, int key, string newName) {
+	arrayOfUsers[key].nickname = newName;
 }
