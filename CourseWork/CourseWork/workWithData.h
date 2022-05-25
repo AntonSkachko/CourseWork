@@ -35,11 +35,11 @@ bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end);
 void sorting(ProductInfo*& arrayOfProduct, int size, int choice);
 
 // searching
-ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int date);
-ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int element);
-ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string nameOfProduct);
-ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int count);
-ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, string person);
+ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, int date);
+ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, int element);
+ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, string nameOfProduct);
+ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, int count);
+ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, string person);
 
 
 // make bettter name!!

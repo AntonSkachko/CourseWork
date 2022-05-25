@@ -98,14 +98,13 @@ void sorting(ProductInfo*& arrayOfProduct, int size, int choice) {
 
 
 // поиск по году когда он произведён
-ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int date) {
-	int sizeOfTempArray = 1;
+ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, int date) {
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
 
 	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
 		if (arrayOfProduct[numberOfProduct].dayWhenProductCreate.year == date) {
-			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
 			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
+			tempArray[sizeOfTempArray - 2] = arrayOfProduct[numberOfProduct];
 		}
 	}
 	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
@@ -113,14 +112,13 @@ ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size,
 }
 
 // поиск по номеру цеха
-ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int element) {
-	int sizeOfTempArray = 1;
+ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, int element) {
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
 
 	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
 		if (arrayOfProduct[numberOfProduct].workShopNumber == element) {
-			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
 			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
+			tempArray[sizeOfTempArray - 2] = arrayOfProduct[numberOfProduct];
 		}
 	}
 	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
@@ -128,14 +126,13 @@ ProductInfo* searchByWorkShopNumber(ProductInfo* arrayOfProduct, int size, int e
 }
 
 // поиск по имени продукта
-ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string nameOfProduct) {
-	int sizeOfTempArray = 1;
+ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, string nameOfProduct) {
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
 
 	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
 		if (arrayOfProduct[numberOfProduct].productName == nameOfProduct) {
-			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
 			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
+			tempArray[sizeOfTempArray - 2] = arrayOfProduct[numberOfProduct];
 		}
 	}
 	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
@@ -143,14 +140,13 @@ ProductInfo* searchByProductName(ProductInfo* arrayOfProduct, int size, string n
 }
 
 // поиск по количеству выпущенных единиц
-ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int count) {
-	int sizeOfTempArray = 1;
+ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, int count) {
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
 
 	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
 		if (arrayOfProduct[numberOfProduct].numberOfProductsProduced == count) {
-			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
 			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
+			tempArray[sizeOfTempArray - 2] = arrayOfProduct[numberOfProduct];
 		}
 	}
 	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);
@@ -158,14 +154,13 @@ ProductInfo* searchByNumberOfProductsProduced(ProductInfo* arrayOfProduct, int s
 }
 
 // поиск по ответсвенному в это дату выпуска продукции
-ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, string person) {
-	int sizeOfTempArray = 1;
+ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, string person) {
 	ProductInfo* tempArray = new ProductInfo[sizeOfTempArray];
 
 	for (int numberOfProduct = 0; numberOfProduct < size; numberOfProduct++) {
 		if (arrayOfProduct[numberOfProduct].responsiblePerson == person) {
-			tempArray[sizeOfTempArray - 1] = arrayOfProduct[numberOfProduct];
 			tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray + 1, tempArray);
+			tempArray[sizeOfTempArray - 2] = arrayOfProduct[numberOfProduct];
 		}
 	}
 	tempArray = resizeArray(sizeOfTempArray, sizeOfTempArray - 1, tempArray);

@@ -69,6 +69,7 @@ void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 			arrayOfProduct[i].dayWhenProductCreate.month << "." << arrayOfProduct[i].dayWhenProductCreate.year << setw(5) << "|"
 			<< setw(7) << arrayOfProduct[i].workShopNumber << setw(6) << "|" << setw(11) << arrayOfProduct[i].productName << setw(9) << "|"
 			<< setw(15) << arrayOfProduct[i].numberOfProductsProduced << setw(16) << "|" << setw(13) << arrayOfProduct[i].responsiblePerson << setw(8) << "|\n";
+
 	}
 	cout << "|-----------------------------------------------------------------------------------------------------------|\n";
 	
@@ -106,12 +107,12 @@ void outputSorting(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 
 void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	system("cls");
-	ProductInfo* searchingArray = new ProductInfo[1];
+	int searchingChoice, date, element, count, numberOfWorkshop, sizeOfTempArray = 1;
+	ProductInfo* searchingArray = new ProductInfo[sizeOfTempArray];
 	string nameOfResponsible, nameOfProduct;
-	int searchingChoice, date, element, count, numberOfWorkshop;
 	productTableOutput(arrayOfProduct, sizeArrayOfData);
 	cout << " по какому методу будем искать:\n 1) по году когда он был произведён \n"
-		<< " сортировка по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
+		<< " 2) поиск по номеру цеха \n 3) по названию продукта \n 4) по количеству выпущенных единиц"
 		<< "\n 5) по имени ответсвенного \n 6) Выход \n Введите число: ";
 	cin >> searchingChoice;
 
@@ -123,39 +124,46 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	case 1:
 		cout << " Введите год: ";
 		cin >> date;
-		searchingArray = searchByDayWhenProductCreate(arrayOfProduct, sizeArrayOfData, date);
+		searchingArray = searchByDayWhenProductCreate(arrayOfProduct, sizeArrayOfData, sizeOfTempArray, date);
 		break;
 
 	case 2:
 		cout << " Введите номер цеха: ";
 		cin >> element;
-		searchingArray = searchByWorkShopNumber(arrayOfProduct, sizeArrayOfData, element);
+		searchingArray = searchByWorkShopNumber(arrayOfProduct, sizeArrayOfData, sizeOfTempArray, element);
 		break;
 
 	case 3:
 		cout << " Введите название продукта: ";
 		cin >> nameOfProduct;
-		searchingArray = searchByProductName(arrayOfProduct, sizeArrayOfData, nameOfProduct);
+		searchingArray = searchByProductName(arrayOfProduct, sizeArrayOfData, sizeOfTempArray, nameOfProduct);
 		break;
 
 	case 4:
 		cout << " Введите количество выпущенной продукции: ";
 		cin >> count;
-		searchingArray = searchByNumberOfProductsProduced(arrayOfProduct, sizeArrayOfData, count);
+		searchingArray = searchByNumberOfProductsProduced(arrayOfProduct, sizeArrayOfData, sizeOfTempArray, count);
 		break;
 	case 5:
 		cout << " Введите ответсвенного в день выпуска продукции: ";
 		cin >> nameOfResponsible;
-		searchingArray = searchByResponsiblePerson(arrayOfProduct, sizeArrayOfData, nameOfResponsible);
+		searchingArray = searchByResponsiblePerson(arrayOfProduct, sizeArrayOfData, sizeOfTempArray, nameOfResponsible);
 		break;
 	case 6:
 		return;
 	default:
 		cout << " такого числа нет попробуй снова";
 	}
-	productTableOutput(searchingArray, 1);
-	system("pause");
-	system("cls");
+	
+	if (sizeOfTempArray >= 1) {
+		productTableOutput(searchingArray, sizeOfTempArray);
+		system("pause");
+		system("cls");
+	}
+	else {
+		cout << " Введите коректную переменную \n";
+		system("pause");
+	}
 
 }
 
@@ -393,6 +401,8 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 							cout << " Прощайте!\n ";
 							break;
 						}
+						system("cls");
+						productTableOutput(arrayOfProduct, sizeArrayOfData);
 						userOutput(arrayOfProduct, sizeArrayOfData, choiceOfUsers);
 					}
 					else {
