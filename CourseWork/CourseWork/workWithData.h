@@ -28,7 +28,7 @@ void addInArray(ProductInfo*& arrayOfProduct, int& size);
 void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement);
 void writeInFile(ProductInfo* arrayOfProduct, int size);
 
-// work with array
+// сортировка
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end);
 bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end);
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end);
