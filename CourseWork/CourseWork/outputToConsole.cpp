@@ -53,10 +53,15 @@ string validation(Users* arrayOfUsers, int sizeArrayOfUsers) {
 
 }
 
-// номер цеха 11
-// название продукта 17
-// количество выпущенных единиц 28
-// имя ответсвенного 17
+// если день или месяц является единичным числом, то к этому числу добавляется 0
+string dayWithZero(int date) {
+	string resultString = "0";
+	if (date < 10) {
+		resultString += to_string(date);
+		return resultString;
+	}
+	return to_string(date);
+}
 
 // вывод таблицы продуктов склада
 void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
@@ -65,8 +70,8 @@ void productTableOutput(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 		<< setw(29) << "количество выпущенных единиц" << setw(2) << "|" << setw(18) << "имя ответсвенного" << setw(3) << "|\n";
 	for (int i = 0; i < sizeArrayOfData; i++) {
 		cout << "|-----------------------------------------------------------------------------------------------------------|\n";
-		cout << "|" << setw(2) << i << setw(2) << "|" << setw(7) << arrayOfProduct[i].dayWhenProductCreate.day << "." <<
-			arrayOfProduct[i].dayWhenProductCreate.month << "." << arrayOfProduct[i].dayWhenProductCreate.year << setw(5) << "|"
+		cout << "|" << setw(2) << i << setw(2) << "|" << setw(7) << dayWithZero(arrayOfProduct[i].dayWhenProductCreate.day) << "." <<
+			dayWithZero(arrayOfProduct[i].dayWhenProductCreate.month) << "." << dayWithZero(arrayOfProduct[i].dayWhenProductCreate.year) << setw(5) << "|"
 			<< setw(7) << arrayOfProduct[i].workShopNumber << setw(6) << "|" << setw(11) << arrayOfProduct[i].productName << setw(9) << "|"
 			<< setw(15) << arrayOfProduct[i].numberOfProductsProduced << setw(16) << "|" << setw(13) << arrayOfProduct[i].responsiblePerson << setw(8) << "|\n";
 
@@ -93,7 +98,7 @@ void outputSorting(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	
 	system("cls");
 	productTableOutput(arrayOfProduct, sizeArrayOfData);
-	cout << " по какому методу будем соритровать:\n 1) по году когда он был произведён \n"
+	cout << " по какому методу будем соритровать:\n 1) по дню когда он был произведён \n"
 		<< " 2) сортировка по номеру цеха \n 3) по количеству выпущенных единиц \n 4) выход\n Введите число: ";
 	int sortingChoice;
 	cin >> sortingChoice;
@@ -101,8 +106,9 @@ void outputSorting(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 		return;
 	}
 	sorting(arrayOfProduct, sizeArrayOfData, sortingChoice);
-
 	system("cls");
+	productTableOutput(arrayOfProduct, sizeArrayOfData);
+	system("pause");
 }
 
 void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
@@ -169,6 +175,7 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 
 void outputIndividualTask(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	system("cls");
+	productTableOutput(arrayOfProduct, sizeArrayOfData);
 	Date beginning, end;
 	int numberOfWorkshop;
 
@@ -189,9 +196,14 @@ void outputIndividualTask(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	cout << "	год:";
 	cin >> end.year;
 	system("cls");
-	int buf_size;
-	auto buf = OutputOfNumberOfManufacturedProducts(arrayOfProduct, beginning, end, numberOfWorkshop, sizeArrayOfData, buf_size);
-	productTableOutput(buf, buf_size);
+	int bufSize;
+	auto buf = OutputOfNumberOfManufacturedProducts(arrayOfProduct, beginning, end, numberOfWorkshop, sizeArrayOfData, bufSize);
+	if (bufSize == 0) {
+		cout << " Вы ввели неправильную информацию \n ";
+		system("pause");
+		return;
+	}
+	productTableOutput(buf, bufSize);
 	system("pause");
 	system("cls");
 }
@@ -202,7 +214,6 @@ void userOutput(ProductInfo*& arrayOfProduct, int sizeArrayOfData, int choice) {
 	
 	int sizeArrayOfProduct;
 	string nameOfProduct, nameOfResponsible;
-	system("cls");
 	switch (choice) {
 		case 1:
 			outputSorting(arrayOfProduct, sizeArrayOfData);
@@ -278,6 +289,8 @@ void displayAdditionalFeatures(ProductInfo*& arrayOfProduct, int& sizeArrayOfDat
 			system("cls");
 			productTableOutput(arrayOfProduct, sizeArrayOfData);
 			addInArray(arrayOfProduct, sizeArrayOfData);
+			cout << " Элемент успешно добавлен\n";
+			system("pause");
 			break;
 		
 		case 6:
@@ -286,6 +299,8 @@ void displayAdditionalFeatures(ProductInfo*& arrayOfProduct, int& sizeArrayOfDat
 			cout << " Введите номер удаляемого элемента: ";
 			cin >> deletingElement;
 			deleteElement(arrayOfProduct, sizeArrayOfData, deletingElement);
+			cout << " Элемент успешно удалён\n";
+			system("pause");
 			break;
 	}
 }

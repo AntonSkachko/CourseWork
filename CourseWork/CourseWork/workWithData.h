@@ -32,7 +32,7 @@ void writeInFile(ProductInfo* arrayOfProduct, int size);
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end);
 bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end);
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end);
-void sorting(ProductInfo*& arrayOfProduct, int size, int choice);
+void sorting(ProductInfo* arrayOfProduct, int size, int choice);
 
 // searching
 ProductInfo* searchByDayWhenProductCreate(ProductInfo* arrayOfProduct, int size, int& sizeOfTempArray, int date);

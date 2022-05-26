@@ -60,7 +60,7 @@ void addInArray(ProductInfo*& arrayOfProduct, int& size) {
 }
 
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end) {
-	return begin.dayWhenProductCreate.year < begin.dayWhenProductCreate.year;
+	return begin.dayWhenProductCreate.day < begin.dayWhenProductCreate.day;
 }
 
 bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end) {
@@ -72,7 +72,7 @@ bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end) {
 }
 
 
-void sorting(ProductInfo*& arrayOfProduct, int size, int choice) {
+void sorting(ProductInfo* arrayOfProduct, int size, int choice) {
 	/* 1 - sorting by date (int)
 	   2 - sorting by workShopNumber (int)
 	   3 - sorting by numberOfProductsProduced (int)
@@ -209,7 +209,7 @@ ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, D
 
 	for (int i = 0; i < size; i++) {
 		if (arrayOfProduct[i].workShopNumber == numberOfWorkshop) {
-			if (convertToDay(arrayOfProduct[i].dayWhenProductCreate) >= convertToDay(beginning) ||
+			if (convertToDay(arrayOfProduct[i].dayWhenProductCreate) >= convertToDay(beginning) &&
 				convertToDay(arrayOfProduct[i].dayWhenProductCreate) <= convertToDay(end)) {
 				manufacturedProducts[sizeOfManufacturedProduct - 1] = arrayOfProduct[i];
 				
