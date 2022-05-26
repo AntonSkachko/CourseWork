@@ -386,7 +386,7 @@ void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
 	arrayOfUsers[sizeArrayOfUsers - 1].access = 0;
 	arrayOfUsers[sizeArrayOfUsers - 1].nickname = username;
 
-	cout << " Отлично записал, ожидайте одобрение вашего аккаунта";
+	cout << " Отлично записал, ожидайте одобрение вашего аккаунта \n";
 }
 
 void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
@@ -436,9 +436,10 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 
 			case 3:
 				system("cls");
-				cout << " Прощайте! ";
+				cout << " Прощайте! \n";
 				writeInUsersFile(arrayOfUsers, sizeArrayOfUsers);
 				writeInFile(arrayOfProduct, sizeArrayOfData);
+				system("pause");
 				return;
 
 			default:
