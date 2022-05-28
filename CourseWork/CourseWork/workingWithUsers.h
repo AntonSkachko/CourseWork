@@ -36,3 +36,4 @@ void deleteUser(Users*& arrayOfUsers, int& size, int key);
 void approveUser(Users*& arrayOfUsers, int size, int key);
 void makeUserAdmin(Users*& arrayOfUsers, int size, int key);
 void changeUsername(Users*& arrayOfUsers, int size, int key, string newName);
+void ban(Users*& arrayOfUsers, int key);

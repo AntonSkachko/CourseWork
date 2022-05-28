@@ -30,3 +30,5 @@ void userOutput(ProductInfo*& arrayOfProduct, int sizeArrayOfData, int choiceOfU
 
 void createNewAccount(Users*& arrayOfUsers, int& sizeArrayOfUsers);
 
+bool isVerification(string doingSomething);
+void outputEditProduct(ProductInfo* arrayOfProduct, int sizeArrayOfData);

@@ -142,3 +142,7 @@ void makeUserAdmin(Users*& arrayOfUsers, int size, int key) {
 void changeUsername(Users*& arrayOfUsers, int size, int key, string newName) {
 	arrayOfUsers[key].nickname = newName;
 }
+
+void ban(Users*& arrayOfUsers, int key) {
+	arrayOfUsers[key].access = 0;
+}

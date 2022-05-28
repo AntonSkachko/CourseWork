@@ -220,7 +220,7 @@ ProductInfo* OutputOfNumberOfManufacturedProducts(ProductInfo* arrayOfProduct, D
 	sizeOfManufacturedProduct--;
 	return manufacturedProducts;
 }
-// you need to complete individual Task
+
 
 void writeInFile(ProductInfo* arrayOfProduct, int size) {
 	ofstream file("productFile.txt");
@@ -235,4 +235,69 @@ void writeInFile(ProductInfo* arrayOfProduct, int size) {
 	}
 	file.close();
 	delete[] arrayOfProduct;
+}
+
+void editProduct(ProductInfo*& arrayOfProduct, int indexOfData, int choice) {
+	// indexOfData - номер изменяемого продукта
+	// choice - что именно мы изменяем
+	/*
+		1 - изменение дня производства
+		2 - изменение номера цеха
+		3 - изменение названия продукта
+		4 - изменение количества продукта
+		5 - изменение ответвенного за производство продукта
+		0 - выход
+
+	*/
+	enum CHOICE
+	{
+		EXIT,
+		ENTER_DATA,
+		ENTER_WORKSHOP_NUMBER,
+		ENTER_PRODUCT_NAME,
+		ENTER_NUMBER_OF_PRODUCT_PRODUCED,
+		ENTER_RESPONSIBLE_PERSON,
+
+	};
+	switch (choice) {
+		case ENTER_DATA:
+			cout << " Введите новую дату:\n"
+			     << "	день: ";
+			cin >> arrayOfProduct[indexOfData].dayWhenProductCreate.day;
+			
+			cout << "	месяц: ";
+			cin >> arrayOfProduct[indexOfData].dayWhenProductCreate.month;
+
+			cout << "	год: ";
+			cin >> arrayOfProduct[indexOfData].dayWhenProductCreate.year;
+
+			break;
+
+		case ENTER_WORKSHOP_NUMBER:
+			cout << " Введите новый номер цеха: ";
+			cin >> arrayOfProduct[indexOfData].workShopNumber;
+			break;
+		
+		case ENTER_PRODUCT_NAME:
+			cout << " Введите новое название продукта: ";
+			cin >> arrayOfProduct[indexOfData].productName;
+			break;
+
+		case ENTER_NUMBER_OF_PRODUCT_PRODUCED:
+			cout << " Введите новое количество продукта: ";
+			cin >> arrayOfProduct[indexOfData].numberOfProductsProduced;
+			break;
+
+		case ENTER_RESPONSIBLE_PERSON:
+			cout << " Введите новое имя ответсвенного за этот цех";
+			cin >> arrayOfProduct[indexOfData].responsiblePerson;
+			break;
+
+		case EXIT:
+			return;
+
+		default:
+			cout << " Введите корректное число!!\n";
+			break;
+	}
 }
