@@ -11,7 +11,7 @@
 	  |	        	 \_|_|_|       |_|_|_/				|
 	  ---------------------------------------------------
 														   **/
-
+// подключаем заголовочные файлы
 #include "outputToConsole.h"
 #include "workingWithUsers.h"
 #include "workWithData.h"
@@ -20,7 +20,11 @@ using namespace std;
 
 
 int main() {
+
+	// подключение русского языка 
 	setlocale(LC_ALL, "Russian");
+
+
 	int sizeArrayOfData = 1, sizeArrayOfUsers = 1;
 	ProductInfo* arrayOfData = new ProductInfo[sizeArrayOfData];
 	readProductFile(arrayOfData, sizeArrayOfData);
@@ -28,6 +32,8 @@ int main() {
 	Users* arrayOfUsers = new Users[sizeArrayOfUsers];
 	readUserFile(arrayOfUsers, sizeArrayOfUsers);
 	
+
+	// вывод 
 	writeToConsole(arrayOfData, arrayOfUsers, sizeArrayOfData, sizeArrayOfUsers);
 
 

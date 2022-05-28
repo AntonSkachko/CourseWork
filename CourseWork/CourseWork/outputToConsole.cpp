@@ -6,10 +6,14 @@ string EnterPassword() {
 	const char BACK_SPACE = 0;
 	const char ENTER = 13;
 	while (true) {
+
+		// принимаем функции с консоли
 		symbol = _getch();
+		
 		if (symbol == ENTER) {
 			break; 
 		}
+
 		else if (symbol == BACK_SPACE) {
 			if (pass.size() > 0) {
 				pass.pop_back();
@@ -159,13 +163,16 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 		cin >> count;
 		searchingArray = searchByNumberOfProductsProduced(arrayOfProduct, sizeArrayOfData, sizeOfTempArray, count);
 		break;
+
 	case RESPONSIBLE_BERSON:
 		cout << " Введите ответсвенного в день выпуска продукции: ";
 		cin >> nameOfResponsible;
 		searchingArray = searchByResponsiblePerson(arrayOfProduct, sizeArrayOfData, sizeOfTempArray, nameOfResponsible);
 		break;
+
 	case EXIT:
 		return;
+
 	default:
 		cout << " такого числа нет попробуй снова";
 	}
@@ -178,6 +185,7 @@ void outputSearch(ProductInfo* arrayOfProduct, int sizeArrayOfData) {
 	else {
 		cout << " Введите коректную переменную \n";
 		system("pause");
+		return;
 	}
 
 }
@@ -384,13 +392,15 @@ void displayAdditionalFeatures(ProductInfo*& arrayOfProduct, int& sizeArrayOfDat
 	}
 }
 
+// вывод админа
 void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeArrayOfData, int& sizeArrayOfUsers) {
 
 	int adminChoice, choiceOfProduct;
 
 	while (true) {
 		system("cls");
-		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n 0) Выйти из системы \n Введите номер: ";
+		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n"
+			<< "0) Выйти из системы \n Введите номер: ";
 
 		enum ADMIN_CHOICE {
 			EXIT,
@@ -403,7 +413,8 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 				while (true) {
 					system("cls");
 					productTableOutput(arrayOfProduct, sizeArrayOfData);
-					cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n 4) выход";
+					cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n"
+						<< "4) выход";
 					cout << "\n 5) добовление продукта\n 6) удаление продукта \n 7) редактировать данные\n";
 					cout << " Введите номер: ";
 					cin >> choiceOfProduct;
@@ -448,6 +459,7 @@ bool isVerification(string doingSomething) {
 }
 
 void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
+	
 	system("cls");
 	string password, username;
 	int countOfMistake = 3;
@@ -455,6 +467,7 @@ void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
 	while (countOfMistake != 0) {
 		cout << " Введите логин: "; cin >> username;
 
+		// проверка на правильность ввода имени
 		if (isUsernameCorrect(username, arrayOfUsers, sizeArrayOfUsers - 1)) {
 			cout << " этот логин занят, введите новый!!\n";
 			cout << " У вас осталось ввести " << countOfMistake << " раза\n";
@@ -470,6 +483,7 @@ void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
 	}
 	cout << " Введите пароль: "; cin >> password;
 
+	// добавление в массив
 	getSalt(arrayOfUsers, password, sizeArrayOfUsers - 1);
 	password += arrayOfUsers[sizeArrayOfUsers - 1].salt;
 	arrayOfUsers[sizeArrayOfUsers - 1].saltedHashPassword = hashing(password);
@@ -480,6 +494,7 @@ void createNewAccount(Users*& arrayOfUsers, int &sizeArrayOfUsers) {
 	cout << " Отлично записал, ожидайте одобрение вашего аккаунта \n";
 }
 
+// старт работы с консолью
 void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeArrayOfData, int sizeArrayOfUsers) {
 	setlocale(LC_ALL, "Russian");
 	
@@ -502,10 +517,15 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 				system("cls");
 				username = validation(arrayOfUsers, sizeArrayOfUsers);
 
+				// часть админа
 				if (isItAdmin(username, arrayOfUsers, sizeArrayOfUsers)) {
 					adminOutput(arrayOfProduct, arrayOfUsers, sizeArrayOfData, sizeArrayOfUsers);
 				}
+
+				// часть пользователя
 				else {
+
+					// проверяем допущен ли пользователь к использованию файла с продукцией
 					if (isAccess(username, arrayOfUsers, sizeArrayOfUsers)) {
 						system("cls");
 						productTableOutput(arrayOfProduct, sizeArrayOfData);
@@ -517,6 +537,7 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 						}
 						userOutput(arrayOfProduct, sizeArrayOfData, choiceOfUsers);
 					}
+					// вывод исключительной ситуации
 					else {
 						system("cls");
 						cout << " У вас ещё нет доступа\n";
@@ -525,12 +546,14 @@ void writeToConsole(ProductInfo* arrayOfProduct, Users*& arrayOfUsers, int sizeA
 					}
 				}
 				break;
+				// создание нового пользователя
 			case CREATE_NEW_ACCOUNT:
 				system("cls");
 				createNewAccount(arrayOfUsers, sizeArrayOfUsers);
 				system("pause");
 				break;
 
+				// выход из программы
 			case EXIT:
 				system("cls");
 				cout << " Прощайте! \n";

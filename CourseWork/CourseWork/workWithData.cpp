@@ -15,8 +15,11 @@ ProductInfo* resizeArray(int& oldSize, int newSize, ProductInfo*& arrayOfProduct
 	return newArray;
 }
 
+// чтение файла с продукцией
 void readProductFile(ProductInfo*& arrayOfProduct, int& size) {
-	ifstream file("productFile.txt");
+
+	const string NAME_OF_PRODUCT_FILE = "productFile.txt";
+	ifstream file(NAME_OF_PRODUCT_FILE);
 
 	if (!file.is_open()) {
 		cout << " У нас проблемы базой данных продукта" << endl;

@@ -1,16 +1,24 @@
 #include "workingWithUsers.h"
 
+// функция по чтению файла
 void readUserFile(Users*& arrayOfUsers, int& size) {
-	ifstream file("account.txt");
+	
+	const string FILE_NAME = "account.txt";
+	ifstream file(FILE_NAME);
+
 	if (!file.is_open()) {
 		cout << "у нас проблемы с чтения файла с пользователями\n";
 	}
+
 	else {
 		int numberOfLines = 0;
 		while (!file.eof()) {
+			// если размер массива будет менше чем, количество элементов в файле,
+			// то размер массива увеличиться
 			if (numberOfLines >= size) {
 				arrayOfUsers = resizeUserArray(arrayOfUsers, size + 1, size);
 			}
+			// запись информации в массив
 			file >> arrayOfUsers[numberOfLines].nickname;
 			file >> arrayOfUsers[numberOfLines].saltedHashPassword;
 			file >> arrayOfUsers[numberOfLines].salt;
@@ -37,7 +45,7 @@ void writeInUsersFile(Users* arrayOfUsers, int size) {
 	file.close();
 }
 
-
+// изменение размера массива
 Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int& oldSize) {
 	if (oldSize == newSize) {
 		return arrayOfUsers;
@@ -61,7 +69,7 @@ void deleteUser(Users*& arrayOfUsers, int& size, int key) {
 	--size;
 }
 
-
+// хеширование
 long long hashing(string& password) {
 	long long cons = 987432869, sum = 1;
 	for (int i = 0; i < password.size(); i++) {
@@ -70,6 +78,7 @@ long long hashing(string& password) {
 	return sum;
 }
 
+// получение соли
 void getSalt(Users*& arrayOfUsers, string password, int key) {
 	srand(hashing(password));
 	string salt = "";
@@ -84,6 +93,7 @@ void getSalt(Users*& arrayOfUsers, string password, int key) {
 	arrayOfUsers[key].salt = salt;
 }
 
+// объединение пароля с солью и возвращение хеша
 long long getSaltedPassword(string& password, Users* arrayOfUsers, int key) {
 	srand(hashing(password));
 	string newPassword = password;
