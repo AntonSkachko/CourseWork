@@ -1,6 +1,4 @@
-5 5 2001 7 tomato anton 5
-10 10 2010 10 apple andrey 10
 10 10 2010 10 potato oleg 10
+2 3 2001 10 potato oleg 10
 11 11 2011 11 paper oleg 11
 12 12 2012 12 orbit eva 12
-27 5 2022 123 keys anton 803

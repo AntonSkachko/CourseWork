@@ -400,7 +400,7 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 	while (true) {
 		system("cls");
 		cout << " 1) работа с таблицей продукции \n 2) работа с таблицей пользователей \n"
-			<< "0) Выйти из системы \n Введите номер: ";
+			<< " 0) Выйти из системы \n Введите номер: ";
 
 		enum ADMIN_CHOICE {
 			EXIT,
@@ -414,7 +414,7 @@ void adminOutput(ProductInfo*& arrayOfProduct, Users*& arrayOfUsers, int& sizeAr
 					system("cls");
 					productTableOutput(arrayOfProduct, sizeArrayOfData);
 					cout << "\n 1) сортировка \n 2) поиск \n 3) вывод количество выпущенных изделий по каждому наименованию \n"
-						<< "4) выход";
+						<< " 4) выход";
 					cout << "\n 5) добовление продукта\n 6) удаление продукта \n 7) редактировать данные\n";
 					cout << " Введите номер: ";
 					cin >> choiceOfProduct;

@@ -62,40 +62,55 @@ void addInArray(ProductInfo*& arrayOfProduct, int& size) {
 	cout << " Введите имя ответвенного во время производва: "; cin >> arrayOfProduct[size - 1].responsiblePerson;
 }
 
+
+// компоратор для сортирвки по дню
 bool compByDayWhenProductCreate(ProductInfo& begin, ProductInfo& end) {
-	return begin.dayWhenProductCreate.day < begin.dayWhenProductCreate.day;
+	return begin.dayWhenProductCreate.day < end.dayWhenProductCreate.day;
 }
 
+// компоратор для сортирвки по номеру цеха
 bool compByWorkShopNumber(ProductInfo& begin, ProductInfo& end) {
 	return begin.workShopNumber < end.workShopNumber;
 }
 
+// компоратор для сортирвки по количеству продукта
 bool compByNumberOfProductsProduced(ProductInfo& begin, ProductInfo& end) {
 	return begin.numberOfProductsProduced < end.numberOfProductsProduced;
 }
 
-
-void sorting(ProductInfo* arrayOfProduct, int size, int choice) {
+// функция сортировки
+void sorting(ProductInfo* arrayOfProduct, int size, int choiceOfSorting) {
 	/* 1 - sorting by date (int)
 	   2 - sorting by workShopNumber (int)
-	   3 - sorting by numberOfProductsProduced (int)
-	   4 - sorting by productName (string) x
-	   5 - sorting by responsiblePerson (string) x
-	
+	   3 - sorting by numberOfProductsProduced (int)	
 	*/
-	switch (choice) {
-		// TO DO сделать более нормальную сортировку с учётом месяца и дня
-		case 1:
+
+	enum CHOICE_OF_SORTING {
+		EXIT,
+		BY_DAY,
+		BY_WORK_SHOP,
+		BY_NUMBER_OF_PRODUCT_PRODUCED
+	};
+
+	switch (choiceOfSorting) {
+		// сортировка по дню
+		case BY_DAY:
 			sort(arrayOfProduct, arrayOfProduct + size, compByDayWhenProductCreate);
 			break;
 		
-		case 2:
+		// сортировка по номеру цеха
+		case BY_WORK_SHOP:
 			sort(arrayOfProduct, arrayOfProduct + size, compByWorkShopNumber);
 			break;
 		
-		case 3:
+		// сортировка по количеству продукта
+		case BY_NUMBER_OF_PRODUCT_PRODUCED:
 			sort(arrayOfProduct, arrayOfProduct + size, compByNumberOfProductsProduced);
 			break;
+
+		// выход
+		case EXIT:
+			return;
 	}
 }
 
@@ -174,18 +189,10 @@ ProductInfo* searchByResponsiblePerson(ProductInfo* arrayOfProduct, int size, in
 // будет выводиться таблица элементов с нумерацией и пользователь выбирает
 // deletingElement который будет удалять
 void deleteElement(ProductInfo*& arrayOfProduct, int& size, int deletingElement) {
-	int indexOfBuf = 0;
-	
-	ProductInfo* buf = new ProductInfo[size - 1];
-	for (int i = 0; i < size - 1; i++) {
-		if (i != deletingElement) {
-			buf[indexOfBuf] = arrayOfProduct[i];
-			indexOfBuf++;
-		}
+	for (int i = deletingElement; i < size - 1; i++) {
+		arrayOfProduct[i] = arrayOfProduct[i + 1];
 	}
-	arrayOfProduct = buf;
-	size --;
-	delete[] buf;
+	size--;
 }
 
 // TO DO better !!!!!!!

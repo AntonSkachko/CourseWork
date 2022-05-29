@@ -6,11 +6,13 @@ void readUserFile(Users*& arrayOfUsers, int& size) {
 	const string FILE_NAME = "account.txt";
 	ifstream file(FILE_NAME);
 
+	// проверка на наличие файла
 	if (!file.is_open()) {
 		cout << "у нас проблемы с чтения файла с пользователями\n";
 	}
 
 	else {
+		// количество строк в файле
 		int numberOfLines = 0;
 		while (!file.eof()) {
 			// если размер массива будет менше чем, количество элементов в файле,
@@ -25,11 +27,13 @@ void readUserFile(Users*& arrayOfUsers, int& size) {
 			file >> arrayOfUsers[numberOfLines].role;
 			file >> arrayOfUsers[numberOfLines].access;
 
+			// увелечиние количества строк в файле
 			numberOfLines++;
 		}
 		--size;
 		
 	}
+	// закрытие файла
 	file.close();
 }
 
@@ -60,9 +64,10 @@ Users* resizeUserArray(Users*& arrayOfUsers, int newSize, int& oldSize) {
 	return newArray;
 }
 
-
+// удаление пользователя
 void deleteUser(Users*& arrayOfUsers, int& size, int key) {
 
+	// изменение размера массива с пользовалями
 	for (int i = key; i < size - 1; i++) {
 		arrayOfUsers[i] = arrayOfUsers[i + 1];
 	}
