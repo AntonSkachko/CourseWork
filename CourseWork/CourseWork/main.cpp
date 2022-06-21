@@ -2,16 +2,16 @@
 	  ---------------------------------------------------
 	  |        Made by Skachko Anton (@jAnt0n228)       |
 	  |             2021 - BSUIR - FCP - PMS            |
-	  |          *** All rights reserved ***			|
-	  |													|
-	  |	        	\_____________________/				|
-	  |	        	 ___/__|_______|__\___				|
-	  |	        	 /+++  _________  +++\				|
-	  |	        	 \___ /_GTR R34_\ ___/				|
-	  |	        	 \_|_|_|       |_|_|_/				|
+	  |          *** All rights reserved ***	    |
+	  |						    |
+	  |	        \_____________________/		    |
+	  |	         ___/__|_______|__\___		    |
+	  |	         /+++  _________  +++\		    |
+	  |	         \___ /_GTR R34_\ ___/		    |
+	  |	         \_|_|_|       |_|_|_/		    |
 	  ---------------------------------------------------
 														   **/
-// подключаем заголовочные файлы
+// ГЇГ®Г¤ГЄГ«ГѕГ·Г ГҐГ¬ Г§Г ГЈГ®Г«Г®ГўГ®Г·Г­Г»ГҐ ГґГ Г©Г«Г»
 #include "outputToConsole.h"
 #include "workingWithUsers.h"
 #include "workWithData.h"
@@ -21,7 +21,7 @@ using namespace std;
 
 int main() {
 
-	// подключение русского языка 
+	// ГЇГ®Г¤ГЄГ«ГѕГ·ГҐГ­ГЁГҐ Г°ГіГ±Г±ГЄГ®ГЈГ® ГїГ§Г»ГЄГ  
 	setlocale(LC_ALL, "Russian");
 
 
@@ -33,7 +33,7 @@ int main() {
 	readUserFile(arrayOfUsers, sizeArrayOfUsers);
 	
 
-	// вывод 
+	// ГўГ»ГўГ®Г¤ 
 	writeToConsole(arrayOfData, arrayOfUsers, sizeArrayOfData, sizeArrayOfUsers);
 
 
