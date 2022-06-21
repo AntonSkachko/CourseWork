@@ -1,6 +1,6 @@
 /**
 	  ---------------------------------------------------
-	  |        Made by Skachko Anton (@jAnt0n228)       |
+	  |        Made by Skachko Anton (@Ant0n228)        |
 	  |             2021 - BSUIR - FCP - PMS            |
 	  |          *** All rights reserved ***	    |
 	  |						    |
