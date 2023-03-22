@@ -1,6 +1,7 @@
-# CourseWork
-Released product details include: date; product number; Name of workshop; number of issued units; Name of the person responsible for conducting the workshop on that day.
+# Курсовая работа
+Разработать программу учета выпускаемой предприятием продукции.
+Сведения о выпущенной продукции включают: дату; номер цеха; наименование продукции; количество выпущенных единиц; ФИО ответсвен-ного по цеху в данный день
 
-For a given workshop, it is necessary to display the number of manufactured products for each item for the required period of time (the required period of time is entered from the keyboard).
+Индивидуальное задание: для заданного цеха необходимо вывести ко-личество выпущенных изделий по каждому наименованию за требуемый пе-риод времени (требуемый период времени вводится с клавиатуры).
 
-Implement login authorization, administrator functionality and user functionality
+Реализовать авторизацию для входа в систему, функционал админи-стратора и функционал пользователя, как минимум три вида поиска, как ми-нимум три вида сортировки.
